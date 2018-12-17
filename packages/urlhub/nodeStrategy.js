@@ -1,36 +1,29 @@
 var onChange = function () {};
 
-var pushStrategy = {
+var nodeStrategy = {
   init: function( options ){
     this.basePath = options.basePath || '';
     if( this.basePath.slice(-1) === '/' ){
       this.basePath = this.basePath.slice(0, -1);
-    }
+		}
+		this.history = [ this.basePath + (options.initialLocation || '/') ];
   },
   start: function(){
-    var me = this;
-
-    // Register event listener
-    window.onpopstate = function(){
-      me.emit();
-    };
-
-    // Emit first onChange
     me.emit();
   },
   push: function( location ){
-    history.pushState( {}, '', this.basePath + location );
+		this.history.push( this.basePath + location );
     this.emit();
   },
   replace: function( location ){
-    history.replaceState( {}, '', this.basePath + location );
+		this.history[ this.history.length ] = this.basePath + location;
     this.emit();
   },
   onChange: function( cb ){
     onChange = cb;
   },
   getLocation: function(){
-    var l = location.pathname + location.search + location.hash,
+    var l = this.history[ this.history.length ],
       basePathLength = this.basePath.length
     ;
 
@@ -45,4 +38,4 @@ var pushStrategy = {
   }
 };
 
-module.exports = pushStrategy;
+module.exports = nodeStrategy;
