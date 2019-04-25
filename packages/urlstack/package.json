@@ -1,6 +1,6 @@
 {
   "name": "urlstack",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "A router for universal navigation in react-native",
   "main": "urlstack.js",
   "scripts": {
@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/arqex/urlstack#readme",
   "dependencies": {
-    "urlhub": "^0.7.2"
+    "urlhub": "^0.7.3"
   },
   "peerDependencies": {
     "react-native": "^0.55.2"
