@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/arqex/urlhub"
+    "url": "https://github.com/arqex/url-navigation/packages/urlhub"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
