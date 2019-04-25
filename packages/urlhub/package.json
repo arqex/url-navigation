@@ -33,5 +33,6 @@
     "karma-phantomjs-launcher": "^1.0.4",
     "natives": "^1.1.6",
     "webpack-stream": "^3.2.0"
-  }
+  },
+  "gitHead": "0143aef5153063dfc79bda71160f5ea5f9fb5ca7"
 }
