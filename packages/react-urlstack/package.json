@@ -1,6 +1,6 @@
 {
   "name": "react-urlstack",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "A responsive navigator for react-native based on URLs",
   "main": "dist/react-urlstack.js",
   "module": "src/index.js",
@@ -40,6 +40,6 @@
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
     "react-interactable": "^0.6.4",
-    "urlstack": "^0.6.1"
+    "urlstack": "^0.6.4"
   }
 }
