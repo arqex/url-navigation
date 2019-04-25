@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, Text, Image, StyleSheet, TouchableHighlight} from 'react-native'
-import {SharedElement} from '../../../../react-urlstack'
+import {SharedElement} from 'react-urlstack'
 import avatarTransition from './avatarTransition'
 
 export default function ContactItem( props ){

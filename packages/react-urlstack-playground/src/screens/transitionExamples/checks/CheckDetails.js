@@ -3,7 +3,7 @@ import {View, Text, FlatList, StyleSheet, Animated, TouchableHighlight} from 're
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CheckItem from './CheckItem';
 import data from './checkData'
-import {stagger} from '../../../../react-urlstack'
+import {stagger} from 'react-urlstack'
 
 export default function CheckDetails( props ){
 	let animatedValue = props.indexes.transition

@@ -1,11 +1,10 @@
 import React from 'react'
 import {StyleSheet, View, Text, Platform} from 'react-native'
-import {Navigator} from '../react-urlstack'
+import {Navigator} from 'react-urlstack'
 import routes from './routes'
 import SideMenu from './components/menu/SideMenu'
 
 if( Platform.OS === 'web' ){
-  console.log('Requiring shit')
   require('./utils/loadIconFont')
 }
 

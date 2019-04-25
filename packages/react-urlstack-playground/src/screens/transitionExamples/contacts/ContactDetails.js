@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {View, Text, Image, TouchableHighlight, StyleSheet, Animated} from 'react-native'
 import data from './contactData'
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {SharedElement} from '../../../../react-urlstack'
+import {SharedElement} from 'react-urlstack'
 import avatarTransition from './avatarTransition'
 
 const icons = {

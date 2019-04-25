@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, Text, Image, StyleSheet, TouchableHighlight} from 'react-native'
-import {SharedElement} from '../../../../react-urlstack'
+import {SharedElement} from 'react-urlstack'
 import checkTransition from './checkTransition'
 import Icon from 'react-native-vector-icons/FontAwesome';
 

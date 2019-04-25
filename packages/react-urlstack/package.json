@@ -3,6 +3,7 @@
   "version": "0.2.4",
   "description": "A responsive navigator for react-native based on URLs",
   "main": "dist/react-urlstack.js",
+  "module": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "playground": "node ./react-urlstack-playground/scripts/start.js",

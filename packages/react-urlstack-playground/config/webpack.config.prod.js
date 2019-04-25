@@ -229,6 +229,7 @@ module.exports = {
               ),
               
               plugins: [
+                '@babel/plugin-proposal-class-properties',
                 [
                   require.resolve('babel-plugin-named-asset-import'),
                   {

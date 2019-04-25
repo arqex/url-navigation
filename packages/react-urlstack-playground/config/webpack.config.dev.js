@@ -16,7 +16,9 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin-alt');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
+const transpiledModules = require('./transpiledModules')
 
+console.log('DEV CONFIGURATION', transpiledModules)
 console.log('App src', paths.appSrc )
 
 // Webpack uses `publicPath` to determine where the app is being served from.
@@ -152,9 +154,7 @@ module.exports = {
     alias: {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-      'react': path.join(paths.appSrc, 'node_modules/react'), // needed to not to use 2 different reacts
-      'react-native': 'react-native-web',
-      'react-urlstack': path.join(paths.appSrc, 'react-urlstack') // load urlstack from the src screen
+      'react-native': 'react-native-web'
     },
     plugins: [
       // Adds support for installing with Plug'n'Play, leading to faster installs and adding
@@ -218,11 +218,7 @@ module.exports = {
           // The preset includes JSX, Flow, and some ESnext features.
           {
             test: /\.(js|mjs|jsx|ts|tsx)$/,
-            include: [
-              path.join( __dirname, '../src' ),
-              path.join( __dirname, '../react-urlstack' ),
-              path.join( __dirname, '../node_modules/react-native-vector-icons'),
-            ],
+            include: transpiledModules,
             loader: require.resolve('babel-loader'),
             options: { 
               "presets": [
@@ -230,7 +226,7 @@ module.exports = {
                 ["@babel/env", {"targets": {"browsers": [ "last 2 versions" ] }} ]
               ],             
               plugins: [
-                ['@babel/plugin-proposal-class-properties'],
+                '@babel/plugin-proposal-class-properties',
                 [
                   require.resolve('babel-plugin-named-asset-import'),
                   {
