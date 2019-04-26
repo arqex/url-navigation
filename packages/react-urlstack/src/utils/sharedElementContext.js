@@ -104,7 +104,7 @@ class TransitionLayer extends Component {
 
 		this.leavingTransition = leavingTransition;
 
-		this.waitForReadyAndRender(couples, toIndex );
+		this.waitForReadyAndRender( couples, toIndex );
 	}
 
 	waitForReadyAndRender( couples, toIndex ){

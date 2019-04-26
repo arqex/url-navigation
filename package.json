@@ -3,5 +3,8 @@
   "private": true,
   "devDependencies": {
     "lerna": "^3.13.1"
+  },
+  "scripts": {
+    "playground": "cd packages/react-urlstack-playground && npm run web"
   }
 }
