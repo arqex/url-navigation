@@ -1,18 +1,16 @@
 {
   "name": "urlstack",
-  "version": "1.0.0",
+  "version": "0.6.4",
   "description": "A router for universal navigation in react-native",
   "main": "urlstack.js",
   "scripts": {
     "build": "./node_modules/.bin/bili",
     "test": "./node_modules/.bin/karma start karma.conf.js --single-run && \"./node_modules/.bin/jasmine\"",
-    "karma": "./node_modules/.bin/karma start karma.chrome.conf.js",
-    "version": "npm run build",
-    "prepublishOnly": "npm test"
+    "karma": "./node_modules/.bin/karma start karma.chrome.conf.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/arqex/url-navigation/tree/master/packages/urlstack"
+    "url": "git+https://github.com/arqex/urlstack.git"
   },
   "keywords": [
     "router",
@@ -29,7 +27,7 @@
   },
   "homepage": "https://github.com/arqex/urlstack#readme",
   "dependencies": {
-    "urlhub": "^1.0.0"
+    "urlhub": "^0.7.4"
   },
   "peerDependencies": {
     "react-native": "^0.55.2"

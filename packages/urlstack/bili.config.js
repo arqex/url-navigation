@@ -1,9 +1,14 @@
 module.exports = {
 	input: ['urlstack.js'],
-	moduleName: 'urlstack',
-	formats: ['umd'],
-	global: {},
-	external: [],
-	banner: { name: '*//* eslint-disable */\n/*!\n * urlstack' },
-	filename: '[name][suffix].js'
+	output: {
+		format: ['umd'],
+		sourceMap: true,
+		fileName: 'urlstack.js',
+		moduleName: 'urlstack'
+	},
+	globals: {
+		react: 'React',
+		'prop-types': 'PropTypes'
+	},
+	banner: { name: 'urlstack' }
 }
