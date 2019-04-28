@@ -4,8 +4,8 @@
   "description": "Another router library, yet the simplest one.",
   "main": "urlhub.js",
   "scripts": {
-    "test": "node_modules/.bin/karma start karma.conf.js --single-run && \"./node_modules/.bin/jasmine\"",
-    "build": "node_modules/.bin/gulp"
+    "test": "npx karma start karma.conf.js --single-run && \"./node_modules/.bin/jasmine\"",
+    "build": "npx gulp"
   },
   "author": {
     "name": "Javier Marquez",

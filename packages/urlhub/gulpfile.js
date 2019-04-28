@@ -1,6 +1,5 @@
 var gulp = require('gulp'),
   webpackStream = require('webpack-stream'),
-  webpack = require('webpack'),
   rename = require('gulp-rename')
 ;
 
@@ -10,7 +9,7 @@ function build( filename, min ){
 
   if( min ){
     filename += '.min';
-    config.plugins = [ new webpack.optimize.UglifyJsPlugin() ]
+    config = Object.assign( {optimization: {minimize: true}}, config );
   }
 
   return stream.pipe( webpackStream( config ) )
@@ -21,5 +20,5 @@ function build( filename, min ){
 
 gulp.task( 'default', function(){
   build('urlhub');
-  return build('urlhub', true);
+  // return build('urlhub', true);
 });

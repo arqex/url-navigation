@@ -1,6 +1,5 @@
 module.exports = {
 	input: ['src/index.js'],
-	moduleName: 'UrlStack',
 	output: {
 		format: ['cjs-min'],
 		sourceMap: true,
