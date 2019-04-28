@@ -5,7 +5,9 @@
   "main": "urlhub.js",
   "scripts": {
     "test": "npx karma start karma.conf.js --single-run && \"./node_modules/.bin/jasmine\"",
-    "build": "npx gulp"
+    "build": "npx gulp",
+    "version": "npm run build",
+    "prepublishOnly": "npm test"
   },
   "author": {
     "name": "Javier Marquez",

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "playground": "node ./react-urlstack-playground/scripts/start.js",
-    "build": "./node_modules/.bin/bili"
+    "build": "./node_modules/.bin/bili",
+    "version": "npm run build"
   },
   "repository": {
     "type": "git",

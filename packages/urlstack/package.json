@@ -6,7 +6,9 @@
   "scripts": {
     "build": "./node_modules/.bin/bili",
     "test": "./node_modules/.bin/karma start karma.conf.js --single-run && \"./node_modules/.bin/jasmine\"",
-    "karma": "./node_modules/.bin/karma start karma.chrome.conf.js"
+    "karma": "./node_modules/.bin/karma start karma.chrome.conf.js",
+    "version": "npm run build",
+    "prepublishOnly": "npm test"
   },
   "repository": {
     "type": "git",
