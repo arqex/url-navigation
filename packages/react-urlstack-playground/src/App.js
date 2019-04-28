@@ -12,6 +12,7 @@ export default function StackApp(props){
   return (
     <View style={ styles.container }>
       <Navigator routes={ routes }
+        interceptor={ l => l.pathname === '/foo' ? '/tabs' : l }
         DrawerComponent={ SideMenu }
         transitionTime={ 1000 } /> 
     </View>

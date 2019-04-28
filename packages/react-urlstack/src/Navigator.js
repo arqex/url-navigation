@@ -35,7 +35,8 @@ export default class Navigator extends Component {
 	}
 
 	static propTypes = {
-		transitions: PropTypes.object
+		transitions: PropTypes.object,
+		interceptor: PropTypes.func
 	}
 
 	static defaultProps = {
@@ -130,13 +131,22 @@ export default class Navigator extends Component {
 		return {stack, index}
 	}
 
-	startRouter( routes ){
-		this.router = createRouter( routes );
+	startRouter(){
+		let router = createRouter( this.props.routes );
+
+		let interceptor = this.props.interceptor;
+		if( interceptor ){
+			router.onBeforeChange( interceptor );
+		}
+
 		this.fu = () => this.forceUpdate();
-		this.router.onChange( () => this.fu() );
-		this.router.start();
+		router.onChange( () => this.fu() );
+		router.start();
+
+		this.router = router;
+
 		this.showingModal = this.detectModal();
-		this.updateModalIndexes( this.showingModal )
+		this.updateModalIndexes( this.showingModal );
 	}
 
 	getWindowSize(){
@@ -147,7 +157,7 @@ export default class Navigator extends Component {
 	}
 
 	componentDidMount() {
-		this.startRouter(this.props.routes);
+		this.startRouter();
 	}
 
 	componentWillUnmount() {

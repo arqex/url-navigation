@@ -1,13 +1,16 @@
 module.exports = {
-	input: ['react-urlstack.js'],
+	input: ['src/index.js'],
 	moduleName: 'UrlStack',
-	formats: ['umd'],
-	global: {
+	output: {
+		format: ['cjs-min'],
+		sourceMap: true,
+		fileName: 'react-urlstack.js'
+	},
+	globals: {
 		react: 'React',
 		'prop-types': 'PropTypes',
 		'react-native': 'ReactNative'
 	},
-	external: ['react-native'],
-	banner: { name: '*//* eslint-disable */\n/*!\n * react-urlstack' },
-	filename: '[name][suffix].js'
+	externals: ['react-native'],
+	banner: { name: 'react-urlstack' }
 }

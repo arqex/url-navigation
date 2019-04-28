@@ -7,8 +7,7 @@ const transpileModules = [
 ]
 
 const packages = [
-  'react-urlstack-playground',
-  'react-urlstack'
+  'react-urlstack-playground'
 ]
 
 let transpilePaths = packages.map( p => (

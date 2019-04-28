@@ -245,7 +245,7 @@ module.exports = {
               // Don't waste time on Gzipping the cache
               cacheCompression: false,
             },
-          }, /*
+          }, 
           // Process any JS outside of the app with Babel.
           // Unlike the application JS, we only compile the standard ES features.
           {
@@ -270,9 +270,9 @@ module.exports = {
               // because it was compiled. Thus, we don't want the browser
               // debugger to show the original code. Instead, the code
               // being evaluated would be much more helpful.
-              sourceMaps: false,
+              // sourceMaps: false,
             },
-          }, 
+          },  /*
           // "postcss" loader applies autoprefixer to our CSS.
           // "css" loader resolves paths in CSS and adds assets as dependencies.
           // "style" loader turns CSS into JS modules that inject <style> tags.

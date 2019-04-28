@@ -3,7 +3,6 @@
   "version": "0.2.5",
   "description": "A responsive navigator for react-native based on URLs",
   "main": "dist/react-urlstack.js",
-  "module": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "playground": "node ./react-urlstack-playground/scripts/start.js",
@@ -31,7 +30,7 @@
     "@babel/preset-env": "^7.2.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.2.0",
-    "bili": "^3.4.2",
+    "bili": "^4.7.3",
     "react": "^16.6.3",
     "react-art": "^16.6.3",
     "react-dom": "^16.6.3",
