@@ -5,7 +5,7 @@ var gulp = require('gulp'),
 
 function build( filename, min ){
   var config = require('./webpack.config');
-  var stream = gulp.src( 'urlstack.js' );
+  var stream = gulp.src( './urlstack.js' );
 
   if( min ){
     filename += '.min';

@@ -17,7 +17,21 @@ module.exports = {
         // exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-          presets: ['bili/babel']
+          options: {
+            "presets": [
+              "@babel/react",
+              ["@babel/env", {"targets": {"browsers": [ "last 2 versions" ] }} ]
+            ],             
+            plugins: [
+              '@babel/plugin-proposal-class-properties',
+            ]
+            /*
+            plugins: [
+              '@babel/plugin-proposal-object-rest-spread',
+              '@babel/plugin-proposal-class-properties'
+            ]
+            */
+          }
         }
       }
     ]

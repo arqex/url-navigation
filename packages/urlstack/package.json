@@ -27,12 +27,14 @@
   },
   "homepage": "https://github.com/arqex/urlstack#readme",
   "dependencies": {
+    "@babel/core": "^7.4.4",
     "urlhub": "^0.7.4"
   },
   "peerDependencies": {
     "react-native": "^0.55.2"
   },
   "devDependencies": {
+    "babel-loader": "^8.0.5",
     "bili": "^4.7.3",
     "jasmine": "^3.3.1",
     "karma": "^3.1.3",
