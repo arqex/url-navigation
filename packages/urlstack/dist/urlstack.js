@@ -1,1559 +1,215 @@
-/*!
- * urlstack v0.6.4
- * (c) Javier Marquez
- * Released under the MIT License.
- */
-(function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  (global = global || self, global.urlstack = factory());
-}(this, function () { 'use strict';
+/* urlstack 0.6.4 by Javier Marquez. MIT licensed. https://github.com/arqex/url-navigation/tree/master/packages/urlstack */
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["urlstack"] = factory();
+	else
+		root["urlstack"] = factory();
+})(typeof self !== 'undefined' ? self : this, function() {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./urlstack.js");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "../../node_modules/mini-querystring/dist/index.js":
+/*!*******************************************************************************!*\
+  !*** C:/proyectos/url-navigation/node_modules/mini-querystring/dist/index.js ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-  function _typeof(obj) {
-    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-      _typeof = function (obj) {
-        return typeof obj;
-      };
-    } else {
-      _typeof = function (obj) {
-        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-      };
-    }
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar q_flat_1 = __webpack_require__(/*! q-flat */ \"../../node_modules/q-flat/dist/index.js\");\n\nvar q_set_1 = __webpack_require__(/*! q-set */ \"../../node_modules/q-set/dist/index.js\");\n\nvar parseReg = /([^=?&]+)=?([^&]*)/g;\n/**\n * @description\n * Converts an object to a query string and optionally flattens it.\n *\n * @example\n * stringify({ a: 1 }) === 'a=1'\n *\n * stringify({ a: { b: 1 } }, true) === 'a[b]=1'\n *\n * @param obj The object to stringify.\n * @param deep If true the object will be flattened using query string syntax.\n */\n\nfunction stringify(obj, deep) {\n  if (deep) {\n    obj = q_flat_1.flatten(obj);\n  }\n\n  var keys = Object.keys(obj);\n\n  if (!keys.length) {\n    return \"\";\n  }\n\n  for (var i = 0, len = keys.length; i < len; i++) {\n    var key = keys[i];\n    keys[i] = encodeURIComponent(key) + \"=\" + encodeURIComponent(obj[key]);\n  }\n\n  return keys.join(\"&\");\n}\n\nexports.stringify = stringify;\n/**\n * @description\n * Parses a query string and optionally unflattens it.\n *\n * @example\n * parse('a=1&b=2&') === \"{ a: '1', b: '2' }\"\n *\n * parse('a=1&b[c]=2', true) === \"{ a: '1', b: { c: '1' } }\"\n *\n * @param str The string to parse.\n * @param deep If true, nested querystring paths will be resolved.\n */\n\nfunction parse(str, deep) {\n  var set = deep ? q_set_1.deep : q_set_1.shallow;\n  var result = {};\n\n  for (;;) {\n    var part = parseReg.exec(str);\n\n    if (!part) {\n      break;\n    }\n\n    var prop = part[1],\n        val = part[2];\n    set(result, decodeURIComponent(prop), decodeURIComponent(val));\n  }\n\n  return result;\n}\n\nexports.parse = parse;\n\n//# sourceURL=webpack://urlstack/C:/proyectos/url-navigation/node_modules/mini-querystring/dist/index.js?");
 
-    return _typeof(obj);
-  }
+/***/ }),
 
-  var isarray = require('isarray');
-  /**
-   * Expose `pathToRegexp`.
-   */
+/***/ "../../node_modules/path-to-regexp/index.js":
+/*!************************************************************************!*\
+  !*** C:/proyectos/url-navigation/node_modules/path-to-regexp/index.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
+eval("function _typeof(obj) { if (typeof Symbol === \"function\" && typeof Symbol.iterator === \"symbol\") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === \"function\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \"symbol\" : typeof obj; }; } return _typeof(obj); }\n\nvar isarray = __webpack_require__(/*! isarray */ \"../../node_modules/path-to-regexp/node_modules/isarray/index.js\");\n/**\n * Expose `pathToRegexp`.\n */\n\n\nmodule.exports = pathToRegexp;\nmodule.exports.parse = parse;\nmodule.exports.compile = compile;\nmodule.exports.tokensToFunction = tokensToFunction;\nmodule.exports.tokensToRegExp = tokensToRegExp;\n/**\n * The main path matching regexp utility.\n *\n * @type {RegExp}\n */\n\nvar PATH_REGEXP = new RegExp([// Match escaped characters that would otherwise appear in future matches.\n// This allows the user to escape special characters that won't transform.\n'(\\\\\\\\.)', // Match Express-style parameters and un-named parameters with a prefix\n// and optional suffixes. Matches appear as:\n//\n// \"/:test(\\\\d+)?\" => [\"/\", \"test\", \"\\d+\", undefined, \"?\", undefined]\n// \"/route(\\\\d+)\"  => [undefined, undefined, undefined, \"\\d+\", undefined, undefined]\n// \"/*\"            => [\"/\", undefined, undefined, undefined, undefined, \"*\"]\n'([\\\\/.])?(?:(?:\\\\:(\\\\w+)(?:\\\\(((?:\\\\\\\\.|[^\\\\\\\\()])+)\\\\))?|\\\\(((?:\\\\\\\\.|[^\\\\\\\\()])+)\\\\))([+*?])?|(\\\\*))'].join('|'), 'g');\n/**\n * Parse a string for the raw tokens.\n *\n * @param  {string}  str\n * @param  {Object=} options\n * @return {!Array}\n */\n\nfunction parse(str, options) {\n  var tokens = [];\n  var key = 0;\n  var index = 0;\n  var path = '';\n  var defaultDelimiter = options && options.delimiter || '/';\n  var res;\n\n  while ((res = PATH_REGEXP.exec(str)) != null) {\n    var m = res[0];\n    var escaped = res[1];\n    var offset = res.index;\n    path += str.slice(index, offset);\n    index = offset + m.length; // Ignore already escaped sequences.\n\n    if (escaped) {\n      path += escaped[1];\n      continue;\n    }\n\n    var next = str[index];\n    var prefix = res[2];\n    var name = res[3];\n    var capture = res[4];\n    var group = res[5];\n    var modifier = res[6];\n    var asterisk = res[7]; // Push the current path onto the tokens.\n\n    if (path) {\n      tokens.push(path);\n      path = '';\n    }\n\n    var partial = prefix != null && next != null && next !== prefix;\n    var repeat = modifier === '+' || modifier === '*';\n    var optional = modifier === '?' || modifier === '*';\n    var delimiter = res[2] || defaultDelimiter;\n    var pattern = capture || group;\n    tokens.push({\n      name: name || key++,\n      prefix: prefix || '',\n      delimiter: delimiter,\n      optional: optional,\n      repeat: repeat,\n      partial: partial,\n      asterisk: !!asterisk,\n      pattern: pattern ? escapeGroup(pattern) : asterisk ? '.*' : '[^' + escapeString(delimiter) + ']+?'\n    });\n  } // Match any characters still remaining.\n\n\n  if (index < str.length) {\n    path += str.substr(index);\n  } // If the path exists, push it onto the end.\n\n\n  if (path) {\n    tokens.push(path);\n  }\n\n  return tokens;\n}\n/**\n * Compile a string to a template function for the path.\n *\n * @param  {string}             str\n * @param  {Object=}            options\n * @return {!function(Object=, Object=)}\n */\n\n\nfunction compile(str, options) {\n  return tokensToFunction(parse(str, options));\n}\n/**\n * Prettier encoding of URI path segments.\n *\n * @param  {string}\n * @return {string}\n */\n\n\nfunction encodeURIComponentPretty(str) {\n  return encodeURI(str).replace(/[\\/?#]/g, function (c) {\n    return '%' + c.charCodeAt(0).toString(16).toUpperCase();\n  });\n}\n/**\n * Encode the asterisk parameter. Similar to `pretty`, but allows slashes.\n *\n * @param  {string}\n * @return {string}\n */\n\n\nfunction encodeAsterisk(str) {\n  return encodeURI(str).replace(/[?#]/g, function (c) {\n    return '%' + c.charCodeAt(0).toString(16).toUpperCase();\n  });\n}\n/**\n * Expose a method for transforming tokens into the path function.\n */\n\n\nfunction tokensToFunction(tokens) {\n  // Compile all the tokens into regexps.\n  var matches = new Array(tokens.length); // Compile all the patterns before compilation.\n\n  for (var i = 0; i < tokens.length; i++) {\n    if (_typeof(tokens[i]) === 'object') {\n      matches[i] = new RegExp('^(?:' + tokens[i].pattern + ')$');\n    }\n  }\n\n  return function (obj, opts) {\n    var path = '';\n    var data = obj || {};\n    var options = opts || {};\n    var encode = options.pretty ? encodeURIComponentPretty : encodeURIComponent;\n\n    for (var i = 0; i < tokens.length; i++) {\n      var token = tokens[i];\n\n      if (typeof token === 'string') {\n        path += token;\n        continue;\n      }\n\n      var value = data[token.name];\n      var segment;\n\n      if (value == null) {\n        if (token.optional) {\n          // Prepend partial segment prefixes.\n          if (token.partial) {\n            path += token.prefix;\n          }\n\n          continue;\n        } else {\n          throw new TypeError('Expected \"' + token.name + '\" to be defined');\n        }\n      }\n\n      if (isarray(value)) {\n        if (!token.repeat) {\n          throw new TypeError('Expected \"' + token.name + '\" to not repeat, but received `' + JSON.stringify(value) + '`');\n        }\n\n        if (value.length === 0) {\n          if (token.optional) {\n            continue;\n          } else {\n            throw new TypeError('Expected \"' + token.name + '\" to not be empty');\n          }\n        }\n\n        for (var j = 0; j < value.length; j++) {\n          segment = encode(value[j]);\n\n          if (!matches[i].test(segment)) {\n            throw new TypeError('Expected all \"' + token.name + '\" to match \"' + token.pattern + '\", but received `' + JSON.stringify(segment) + '`');\n          }\n\n          path += (j === 0 ? token.prefix : token.delimiter) + segment;\n        }\n\n        continue;\n      }\n\n      segment = token.asterisk ? encodeAsterisk(value) : encode(value);\n\n      if (!matches[i].test(segment)) {\n        throw new TypeError('Expected \"' + token.name + '\" to match \"' + token.pattern + '\", but received \"' + segment + '\"');\n      }\n\n      path += token.prefix + segment;\n    }\n\n    return path;\n  };\n}\n/**\n * Escape a regular expression string.\n *\n * @param  {string} str\n * @return {string}\n */\n\n\nfunction escapeString(str) {\n  return str.replace(/([.+*?=^!:${}()[\\]|\\/\\\\])/g, '\\\\$1');\n}\n/**\n * Escape the capturing group by escaping special characters and meaning.\n *\n * @param  {string} group\n * @return {string}\n */\n\n\nfunction escapeGroup(group) {\n  return group.replace(/([=!:$\\/()])/g, '\\\\$1');\n}\n/**\n * Attach the keys as a property of the regexp.\n *\n * @param  {!RegExp} re\n * @param  {Array}   keys\n * @return {!RegExp}\n */\n\n\nfunction attachKeys(re, keys) {\n  re.keys = keys;\n  return re;\n}\n/**\n * Get the flags for a regexp from the options.\n *\n * @param  {Object} options\n * @return {string}\n */\n\n\nfunction flags(options) {\n  return options.sensitive ? '' : 'i';\n}\n/**\n * Pull out keys from a regexp.\n *\n * @param  {!RegExp} path\n * @param  {!Array}  keys\n * @return {!RegExp}\n */\n\n\nfunction regexpToRegexp(path, keys) {\n  // Use a negative lookahead to match only capturing groups.\n  var groups = path.source.match(/\\((?!\\?)/g);\n\n  if (groups) {\n    for (var i = 0; i < groups.length; i++) {\n      keys.push({\n        name: i,\n        prefix: null,\n        delimiter: null,\n        optional: false,\n        repeat: false,\n        partial: false,\n        asterisk: false,\n        pattern: null\n      });\n    }\n  }\n\n  return attachKeys(path, keys);\n}\n/**\n * Transform an array into a regexp.\n *\n * @param  {!Array}  path\n * @param  {Array}   keys\n * @param  {!Object} options\n * @return {!RegExp}\n */\n\n\nfunction arrayToRegexp(path, keys, options) {\n  var parts = [];\n\n  for (var i = 0; i < path.length; i++) {\n    parts.push(pathToRegexp(path[i], keys, options).source);\n  }\n\n  var regexp = new RegExp('(?:' + parts.join('|') + ')', flags(options));\n  return attachKeys(regexp, keys);\n}\n/**\n * Create a path regexp from string input.\n *\n * @param  {string}  path\n * @param  {!Array}  keys\n * @param  {!Object} options\n * @return {!RegExp}\n */\n\n\nfunction stringToRegexp(path, keys, options) {\n  return tokensToRegExp(parse(path, options), keys, options);\n}\n/**\n * Expose a function for taking tokens and returning a RegExp.\n *\n * @param  {!Array}          tokens\n * @param  {(Array|Object)=} keys\n * @param  {Object=}         options\n * @return {!RegExp}\n */\n\n\nfunction tokensToRegExp(tokens, keys, options) {\n  if (!isarray(keys)) {\n    options =\n    /** @type {!Object} */\n    keys || options;\n    keys = [];\n  }\n\n  options = options || {};\n  var strict = options.strict;\n  var end = options.end !== false;\n  var route = ''; // Iterate over the tokens and create our regexp string.\n\n  for (var i = 0; i < tokens.length; i++) {\n    var token = tokens[i];\n\n    if (typeof token === 'string') {\n      route += escapeString(token);\n    } else {\n      var prefix = escapeString(token.prefix);\n      var capture = '(?:' + token.pattern + ')';\n      keys.push(token);\n\n      if (token.repeat) {\n        capture += '(?:' + prefix + capture + ')*';\n      }\n\n      if (token.optional) {\n        if (!token.partial) {\n          capture = '(?:' + prefix + '(' + capture + '))?';\n        } else {\n          capture = prefix + '(' + capture + ')?';\n        }\n      } else {\n        capture = prefix + '(' + capture + ')';\n      }\n\n      route += capture;\n    }\n  }\n\n  var delimiter = escapeString(options.delimiter || '/');\n  var endsWithDelimiter = route.slice(-delimiter.length) === delimiter; // In non-strict mode we allow a slash at the end of match. If the path to\n  // match already ends with a slash, we remove it for consistency. The slash\n  // is valid at the end of a path match, not in the middle. This is important\n  // in non-ending mode, where \"/test/\" shouldn't match \"/test//route\".\n\n  if (!strict) {\n    route = (endsWithDelimiter ? route.slice(0, -delimiter.length) : route) + '(?:' + delimiter + '(?=$))?';\n  }\n\n  if (end) {\n    route += '$';\n  } else {\n    // In non-ending mode, we need the capturing groups to match as much as\n    // possible by using a positive lookahead to the end or next path segment.\n    route += strict && endsWithDelimiter ? '' : '(?=' + delimiter + '|$)';\n  }\n\n  return attachKeys(new RegExp('^' + route, flags(options)), keys);\n}\n/**\n * Normalize the given path string, returning a regular expression.\n *\n * An empty array can be passed in for the keys, which will hold the\n * placeholder key descriptions. For example, using `/user/:id`, `keys` will\n * contain `[{ name: 'id', delimiter: '/', optional: false, repeat: false }]`.\n *\n * @param  {(string|RegExp|Array)} path\n * @param  {(Array|Object)=}       keys\n * @param  {Object=}               options\n * @return {!RegExp}\n */\n\n\nfunction pathToRegexp(path, keys, options) {\n  if (!isarray(keys)) {\n    options =\n    /** @type {!Object} */\n    keys || options;\n    keys = [];\n  }\n\n  options = options || {};\n\n  if (path instanceof RegExp) {\n    return regexpToRegexp(path,\n    /** @type {!Array} */\n    keys);\n  }\n\n  if (isarray(path)) {\n    return arrayToRegexp(\n    /** @type {!Array} */\n    path,\n    /** @type {!Array} */\n    keys, options);\n  }\n\n  return stringToRegexp(\n  /** @type {string} */\n  path,\n  /** @type {!Array} */\n  keys, options);\n}\n\n//# sourceURL=webpack://urlstack/C:/proyectos/url-navigation/node_modules/path-to-regexp/index.js?");
 
-  module.exports = pathToRegexp;
-  module.exports.parse = parse;
-  module.exports.compile = compile;
-  module.exports.tokensToFunction = tokensToFunction;
-  module.exports.tokensToRegExp = tokensToRegExp;
-  /**
-   * The main path matching regexp utility.
-   *
-   * @type {RegExp}
-   */
+/***/ }),
 
-  var PATH_REGEXP = new RegExp([// Match escaped characters that would otherwise appear in future matches.
-  // This allows the user to escape special characters that won't transform.
-  '(\\\\.)', // Match Express-style parameters and un-named parameters with a prefix
-  // and optional suffixes. Matches appear as:
-  //
-  // "/:test(\\d+)?" => ["/", "test", "\d+", undefined, "?", undefined]
-  // "/route(\\d+)"  => [undefined, undefined, undefined, "\d+", undefined, undefined]
-  // "/*"            => ["/", undefined, undefined, undefined, undefined, "*"]
-  '([\\/.])?(?:(?:\\:(\\w+)(?:\\(((?:\\\\.|[^\\\\()])+)\\))?|\\(((?:\\\\.|[^\\\\()])+)\\))([+*?])?|(\\*))'].join('|'), 'g');
-  /**
-   * Parse a string for the raw tokens.
-   *
-   * @param  {string}  str
-   * @param  {Object=} options
-   * @return {!Array}
-   */
+/***/ "../../node_modules/path-to-regexp/node_modules/isarray/index.js":
+/*!*********************************************************************************************!*\
+  !*** C:/proyectos/url-navigation/node_modules/path-to-regexp/node_modules/isarray/index.js ***!
+  \*********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-  function parse(str, options) {
-    var tokens = [];
-    var key = 0;
-    var index = 0;
-    var path = '';
-    var defaultDelimiter = options && options.delimiter || '/';
-    var res;
+eval("module.exports = Array.isArray || function (arr) {\n  return Object.prototype.toString.call(arr) == '[object Array]';\n};\n\n//# sourceURL=webpack://urlstack/C:/proyectos/url-navigation/node_modules/path-to-regexp/node_modules/isarray/index.js?");
 
-    while ((res = PATH_REGEXP.exec(str)) != null) {
-      var m = res[0];
-      var escaped = res[1];
-      var offset = res.index;
-      path += str.slice(index, offset);
-      index = offset + m.length; // Ignore already escaped sequences.
+/***/ }),
 
-      if (escaped) {
-        path += escaped[1];
-        continue;
-      }
+/***/ "../../node_modules/q-flat/dist/index.js":
+/*!*********************************************************************!*\
+  !*** C:/proyectos/url-navigation/node_modules/q-flat/dist/index.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-      var next = str[index];
-      var prefix = res[2];
-      var name = res[3];
-      var capture = res[4];
-      var group = res[5];
-      var modifier = res[6];
-      var asterisk = res[7]; // Push the current path onto the tokens.
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nvar _a = Object.prototype,\n    toString = _a.toString,\n    hasOwnProperty = _a.hasOwnProperty;\nvar OBJECT_TYPE = \"[object Object]\";\nvar ARRAY_TYPE = \"[object Array]\";\n/**\n * @description\n * Creates a querystring style object from a nested one.\n *\n * @example\n * var result = flatten({ a: { b: 1 }, c: { d: 1 } });\n * result; //-> { \"a[b]\": 1, \"c[d]\": 2 }\n *\n * @param obj The object to flatten.\n */\n\nfunction flatten(obj, path, result) {\n  var type = toString.call(obj);\n\n  if (result === undefined) {\n    if (type === OBJECT_TYPE) {\n      result = {};\n    } else if (type === ARRAY_TYPE) {\n      result = [];\n    } else {\n      return;\n    }\n  }\n\n  for (var key in obj) {\n    /* istanbul ignore if */\n    if (!hasOwnProperty.call(obj, key)) {\n      continue;\n    }\n\n    var val = obj[key];\n\n    if (val == null) {\n      continue;\n    }\n\n    switch (toString.call(val)) {\n      case ARRAY_TYPE:\n      case OBJECT_TYPE:\n        flatten(val, join(path, key), result);\n        break;\n\n      default:\n        result[join(path, key)] = val;\n        break;\n    }\n  }\n\n  return result;\n}\n\nexports.flatten = flatten;\n/**\n * Join path keys using query string `a[b]` style syntax.\n */\n\nfunction join(path, key) {\n  return path != null ? path + \"[\" + key + \"]\" : key;\n}\n\n//# sourceURL=webpack://urlstack/C:/proyectos/url-navigation/node_modules/q-flat/dist/index.js?");
 
-      if (path) {
-        tokens.push(path);
-        path = '';
-      }
+/***/ }),
 
-      var partial = prefix != null && next != null && next !== prefix;
-      var repeat = modifier === '+' || modifier === '*';
-      var optional = modifier === '?' || modifier === '*';
-      var delimiter = res[2] || defaultDelimiter;
-      var pattern = capture || group;
-      tokens.push({
-        name: name || key++,
-        prefix: prefix || '',
-        delimiter: delimiter,
-        optional: optional,
-        repeat: repeat,
-        partial: partial,
-        asterisk: !!asterisk,
-        pattern: pattern ? escapeGroup(pattern) : asterisk ? '.*' : '[^' + escapeString(delimiter) + ']+?'
-      });
-    } // Match any characters still remaining.
+/***/ "../../node_modules/q-set/dist/index.js":
+/*!********************************************************************!*\
+  !*** C:/proyectos/url-navigation/node_modules/q-set/dist/index.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+eval("\n\nfunction _typeof(obj) { if (typeof Symbol === \"function\" && typeof Symbol.iterator === \"symbol\") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === \"function\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \"symbol\" : typeof obj; }; } return _typeof(obj); }\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nvar matchArray = /[^\\[\\]]+|\\[\\]/g;\nvar matchInteger = /^\\d+$/;\nvar temp = [];\n/**\n * @description\n * A setter for querystring style fields like \"a[b][c]\".\n * The setter will create arrays for repeat keys and supports the \"[]\" push syntax.\n *\n * @example\n * deep({}, \"a[b][c]\", 1) // { a: { b: { c: 1 } } }\n *\n * @param obj The object to set a value on.\n * @param path The querystring path to set.\n * @param value The value to set at the path.\n */\n\nfunction deep(obj, path, value) {\n  var keys = path === \"\" ? [\"\"] : path.match(matchArray);\n  var len = keys.length;\n  var cur = obj;\n  var prev;\n  var key;\n  var exists;\n\n  for (var i = 0; i < len; i++) {\n    prev = cur;\n    key = keys[i];\n    var next = keys[i + 1];\n\n    if (key === \"[]\") {\n      key = cur.length;\n    } // Make path as we go.\n\n\n    cur = (exists = _typeof(cur) === \"object\" && key in cur) ? cur[key] : // Check if the next path is an explicit array.\n    cur[key] = next === \"[]\" || matchInteger.test(next) ? [] : {};\n  }\n\n  prev[key] = exists ? temp.concat(cur, value) : value;\n  return obj;\n}\n\nexports.deep = deep;\n/**\n * @description\n * Appends to an object using query string syntax with \"[]\" syntax push support.\n *\n * @example\n * shallow({}, \"a[b][c]\", 1) // { \"a[b][c]\": 1 }\n * shallow({}, \"a[]\", 1) // { a: [1] }\n *\n * @param obj The object to set a value on.\n * @param path The querystring path to set.\n * @param value The value to set at the path.\n */\n\nfunction shallow(obj, key, val) {\n  key = arrayPushIndexes(obj, key);\n  obj[key] = key in obj ? temp.concat(obj[key], val) : val;\n  return obj;\n}\n\nexports.shallow = shallow;\n/**\n * Given a qs style key and an object will convert array push syntax to integers.\n * Eg: a[b][] -> a[b][0]\n */\n\nfunction arrayPushIndexes(obj, key) {\n  var path = key.split(\"[]\");\n\n  if (path.length === 1) {\n    return key;\n  }\n\n  var cur = path[0];\n  var keys = Object.keys(obj);\n\n  for (var i = 1, len = path.length; i < len; i++) {\n    cur += \"[\" + findLastIndex(keys, cur) + \"]\" + path[i];\n  }\n\n  return cur;\n}\n/**\n * Given a path to push to will return the next valid index if possible.\n * Eg: a[b][] -> 0 // if array is empty.\n */\n\n\nfunction findLastIndex(keys, path) {\n  var last = -1;\n\n  for (var i = keys.length; i--;) {\n    var key = keys[i];\n\n    if (key.indexOf(path) !== 0) {\n      continue;\n    }\n\n    var index = Number(key.replace(path, \"\").slice(1, key.indexOf(\"]\") - 1));\n\n    if (index > last) {\n      last = index;\n    }\n  }\n\n  return last + 1;\n}\n\n//# sourceURL=webpack://urlstack/C:/proyectos/url-navigation/node_modules/q-set/dist/index.js?");
 
-    if (index < str.length) {
-      path += str.substr(index);
-    } // If the path exists, push it onto the end.
+/***/ }),
 
+/***/ "../urlhub/hashStrategy.js":
+/*!*********************************!*\
+  !*** ../urlhub/hashStrategy.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-    if (path) {
-      tokens.push(path);
-    }
+eval("var _onChange = function onChange() {};\n\nvar hashStrategy = {\n  init: function init(options) {},\n  start: function start() {\n    var me = this;\n\n    if (!location.hash) {\n      location.hash = '#/';\n    } // Register event listener\n\n\n    window.onhashchange = function () {\n      me.emit();\n    }; // Emit first onChange\n\n\n    me.emit();\n  },\n  push: function push(route) {\n    window.location.hash = '#' + route;\n  },\n  replace: function replace(route) {\n    var url = location.protocol + '//' + location.host + location.pathname + '#' + route;\n    location.replace(url);\n  },\n  onChange: function onChange(cb) {\n    _onChange = cb;\n  },\n  getLocation: function getLocation() {\n    if (!location.hash) {\n      return '/';\n    } else if (location.hash[1] !== '/') {\n      return '/' + location.hash;\n    }\n\n    return location.hash.slice(1);\n  },\n  emit: function emit() {\n    _onChange(this.getLocation());\n  },\n  back: function back() {\n    window.history.back();\n  }\n};\nmodule.exports = hashStrategy;\n\n//# sourceURL=webpack://urlstack/../urlhub/hashStrategy.js?");
 
-    return tokens;
-  }
-  /**
-   * Compile a string to a template function for the path.
-   *
-   * @param  {string}             str
-   * @param  {Object=}            options
-   * @return {!function(Object=, Object=)}
-   */
+/***/ }),
 
+/***/ "../urlhub/nodeStrategy.js":
+/*!*********************************!*\
+  !*** ../urlhub/nodeStrategy.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-  function compile(str, options) {
-    return tokensToFunction(parse(str, options));
-  }
-  /**
-   * Prettier encoding of URI path segments.
-   *
-   * @param  {string}
-   * @return {string}
-   */
+eval("var qs = __webpack_require__(/*! mini-querystring */ \"../../node_modules/mini-querystring/dist/index.js\");\n\nvar _onChange = function onChange() {};\n\nvar nodeStrategy = {\n  init: function init(options) {\n    this.history = [options.initialLocation || '/'];\n  },\n  start: function start() {\n    this.emit();\n  },\n  push: function push(location) {\n    this.history.push(location);\n    this.emit();\n  },\n  replace: function replace(location) {\n    this.history[this.history.length] = location;\n    this.emit();\n  },\n  onChange: function onChange(cb) {\n    _onChange = cb;\n  },\n  getLocation: function getLocation() {\n    return this.history[this.history.length - 1];\n  },\n  emit: function emit() {\n    _onChange && _onChange(this.getLocation());\n  },\n  parseUrl: function parseUrl(str) {\n    var parts = str.split('?');\n    var searchParts = parts[1] ? parts[1].split('#') : [];\n    return {\n      pathname: parts[0],\n      search: searchParts[0] ? '?' + searchParts[0] : '',\n      hash: searchParts[1] ? '#' + searchParts[1] : '',\n      query: searchParts[0] ? qs.parse(searchParts[0]) : {}\n    };\n  },\n  back: function back() {\n    if (this.history.length > 1) {\n      this.history.pop();\n    }\n\n    this.emit();\n  }\n};\nmodule.exports = nodeStrategy;\n\n//# sourceURL=webpack://urlstack/../urlhub/nodeStrategy.js?");
 
+/***/ }),
 
-  function encodeURIComponentPretty(str) {
-    return encodeURI(str).replace(/[\/?#]/g, function (c) {
-      return '%' + c.charCodeAt(0).toString(16).toUpperCase();
-    });
-  }
-  /**
-   * Encode the asterisk parameter. Similar to `pretty`, but allows slashes.
-   *
-   * @param  {string}
-   * @return {string}
-   */
+/***/ "../urlhub/pushStrategy.js":
+/*!*********************************!*\
+  !*** ../urlhub/pushStrategy.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
+eval("var _onChange = function onChange() {};\n\nvar pushStrategy = {\n  init: function init(options) {\n    this.basePath = options.basePath || '';\n\n    if (this.basePath.slice(-1) === '/') {\n      this.basePath = this.basePath.slice(0, -1);\n    }\n  },\n  start: function start() {\n    var me = this; // Register event listener\n\n    window.onpopstate = function () {\n      me.emit();\n    }; // Emit first onChange\n\n\n    me.emit();\n  },\n  push: function push(location) {\n    history.pushState({}, '', this.basePath + location);\n    this.emit();\n  },\n  replace: function replace(location) {\n    history.replaceState({}, '', this.basePath + location);\n    this.emit();\n  },\n  onChange: function onChange(cb) {\n    _onChange = cb;\n  },\n  getLocation: function getLocation() {\n    var l = location.pathname + location.search + location.hash,\n        basePathLength = this.basePath.length;\n\n    if (l.slice(0, basePathLength) === this.basePath) {\n      l = l.slice(basePathLength);\n    }\n\n    return l;\n  },\n  emit: function emit() {\n    _onChange && _onChange(this.getLocation());\n  },\n  back: function back() {\n    window.history.back();\n  }\n};\nmodule.exports = pushStrategy;\n\n//# sourceURL=webpack://urlstack/../urlhub/pushStrategy.js?");
 
-  function encodeAsterisk(str) {
-    return encodeURI(str).replace(/[?#]/g, function (c) {
-      return '%' + c.charCodeAt(0).toString(16).toUpperCase();
-    });
-  }
-  /**
-   * Expose a method for transforming tokens into the path function.
-   */
+/***/ }),
 
+/***/ "../urlhub/urlhub.js":
+/*!***************************!*\
+  !*** ../urlhub/urlhub.js ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-  function tokensToFunction(tokens) {
-    // Compile all the tokens into regexps.
-    var matches = new Array(tokens.length); // Compile all the patterns before compilation.
+eval("var parser = __webpack_require__(/*! path-to-regexp */ \"../../node_modules/path-to-regexp/index.js\");\n\nvar qs = __webpack_require__(/*! mini-querystring */ \"../../node_modules/mini-querystring/dist/index.js\");\n/*\r\nroutes = {\r\n  path: '/hola',\r\n  cb: fn,\r\n  children: []\r\n}\r\n*/\n// parseUrl function needed for testing\n\n\nvar parseUrl;\n\nif (typeof window !== 'undefined') {\n  parseUrl = function parseUrl(url) {\n    var a = document.createElement('a');\n    a.href = url;\n    return a;\n  };\n} // The lib\n\n\nvar urlhub = {\n  create: function create(options) {\n    return new Urlhub(options);\n  },\n  joinUrls: joinUrls // just for testing never used, see helpers at bottom\n  // The class\n\n};\n\nvar Urlhub = function Urlhub(options) {\n  if (!options || !options.strategy) {\n    throw new Error('Router needs an strategy to listen to url changes.');\n  }\n\n  var s = options.strategy;\n  var ops = {};\n  Object.keys(options).forEach(function (key) {\n    if (key === 'strategy') return;\n    ops[key] = options[key];\n  });\n  s.init && s.init(ops);\n  this.strategy = s; // Callbacks before the route change\n\n  this.obc = []; // Callbacks to be called on route change\n\n  this.cbs = [];\n};\n\nvar prototype = {\n  setRoutes: function setRoutes(routes) {\n    this.routes = this.parseRoutes(routes);\n  },\n  // Route translation methods\n  parseRoutes: function parseRoutes(routes, parent) {\n    if (!routes) console.warn('No routes provided to parseRoutes');\n\n    if (!routes.length) {\n      routes = [routes];\n    }\n\n    var parsedRoutes = [],\n        me = this;\n    routes.forEach(function (r) {\n      var path = joinUrls(parent, r.path);\n      var params = [],\n          parsed = {\n        regex: parser(path, params),\n        id: path,\n        cb: r.cb\n      };\n      parsed.params = params.map(function (p) {\n        return p.name;\n      });\n\n      if (r.children && r.children.length) {\n        parsed.childRegex = parser(path, [], {\n          end: false\n        });\n        parsed.children = me.parseRoutes(r.children, path);\n      }\n\n      parsedRoutes.push(parsed);\n    });\n    return parsedRoutes;\n  },\n  match: function match(location, candidates, isChild) {\n    var i = 0,\n        url = sanitizeUrl(location),\n        path,\n        found,\n        match,\n        c;\n\n    if (!candidates) {\n      candidates = this.routes;\n    }\n\n    var parsed = (this.strategy.parseUrl || parseUrl)(url);\n    path = parsed.pathname; // Normalize pathname\n\n    if (path[0] !== '/') {\n      path = '/' + path;\n    }\n\n    while (i < candidates.length && !found) {\n      c = candidates[i];\n\n      if (c.childRegex) {\n        //console.log( 'failed', c.regex, path );\n        found = c.childRegex.exec(path);\n\n        if (found) {\n          match = this.match(url, c.children, true);\n\n          if (match.matches.length) {\n            match.matches = [c.cb].concat(match.matches);\n            match.matchIds = [c.id].concat(match.matchIds);\n            return match; // The recursive call will give all the info\n          } else {\n            found = false;\n          }\n        }\n      }\n\n      found = c.regex.exec(path);\n\n      if (found) {\n        found = {\n          id: c.id,\n          cb: c.cb,\n          params: found.slice(1)\n        };\n      }\n\n      if (!found) {\n        i++;\n      }\n    }\n\n    var matches = [];\n    var matchIds = [];\n\n    if (found) {\n      matches.push(found.cb);\n      matchIds.push(found.id);\n    } else if (!isChild) {\n      console.error('There is no route match for ' + location);\n    }\n\n    match = {\n      matches: matches,\n      matchIds: matchIds,\n      pathname: path,\n      search: parsed.search,\n      query: qs.parse(parsed.search),\n      hash: parsed.hash,\n      route: found && found.id || false,\n      params: {}\n    };\n\n    if (found) {\n      c.params.forEach(function (p, i) {\n        match.params[p] = found.params[i];\n      });\n    }\n\n    return match;\n  },\n  // Routing methods\n  start: function start() {\n    var me = this;\n    this.strategy.onChange(function () {\n      var change = me.checkChange();\n      if (!change.next) return;\n\n      if (change.current !== change.next) {\n        me.strategy.replace(change.next);\n      } else {\n        me.location = change.nextLocation;\n        me.cbs.forEach(function (cb) {\n          cb(change.nextLocation);\n        });\n      }\n    });\n    this.strategy.start();\n    this.location = this.match(this.strategy.getLocation());\n    return this.location;\n  },\n  stop: function stop() {\n    this.strategy.onChange(function () {});\n  },\n  refresh: function refresh() {\n    var change = this.checkChange();\n    change.next && change.current !== change.next && this.strategy.replace(change.next);\n  },\n  checkChange: function checkChange() {\n    var current = this.strategy.getLocation(),\n        nextLocation = this.runOnBeforeChange(this.match(current)),\n        next = nextLocation && nextLocation.pathname + nextLocation.search + nextLocation.hash;\n    return {\n      current: current,\n      next: next,\n      nextLocation: nextLocation\n    };\n  },\n  runOnBeforeChange: function runOnBeforeChange(match) {\n    var me = this;\n    this.obc.forEach(function (cb) {\n      if (match) {\n        match = cb(match);\n\n        if (typeof match === 'string') {\n          match = me.match(match);\n        }\n      }\n    });\n    return match;\n  },\n  onBeforeChange: function onBeforeChange(cb) {\n    this.obc.push(cb);\n  },\n  onChange: function onChange(cb) {\n    this.cbs.push(cb);\n  },\n  push: function push(location) {\n    this.updateLocation('push', location);\n  },\n  replace: function replace(location) {\n    this.updateLocation('replace', location);\n  },\n  back: function back() {\n    this.strategy.back();\n  },\n  updateLocation: function updateLocation(method, location) {\n    var current = this.strategy.getLocation();\n    var next;\n\n    if (typeof location === 'string') {\n      next = location;\n    } else {\n      next = mergeLocations(this.match(current), location);\n    }\n\n    var nextLocation = this.runOnBeforeChange(this.match(next));\n\n    if (nextLocation) {\n      next = nextLocation.pathname + nextLocation.search + nextLocation.hash;\n\n      if (current !== next) {\n        this.strategy[method](next);\n      }\n    }\n  }\n};\n\nfor (var method in prototype) {\n  Urlhub.prototype[method] = prototype[method];\n}\n\nmodule.exports = urlhub;\n/********* HELPERS */\n\nfunction joinUrls(one, two) {\n  var first = sanitizeUrl(one),\n      second = sanitizeUrl(two);\n  if (!one) return second;\n  if (!two) return first;\n\n  if (first === '/') {\n    return second;\n  } else if (second === '/') {\n    return first;\n  } else {\n    return first + second;\n  }\n}\n\nfunction sanitizeUrl(url) {\n  if (!url) return '/';\n  var sanitized = url;\n\n  if (sanitized[sanitized.length - 1] === '/') {\n    sanitized = sanitized.slice(0, sanitized.length - 1);\n  }\n\n  if (sanitized[0] !== '/') {\n    sanitized = '/' + sanitized;\n  }\n\n  return sanitized;\n}\n\nfunction mergeLocations(prev, next) {\n  var location = Object.assign(prev, next),\n      search = location.search;\n\n  if (Object.keys(location.query).length) {\n    search = '?' + qs.stringify(location.query);\n  } else {\n    search = '';\n  }\n\n  return location.pathname + search + location.hash;\n}\n\n//# sourceURL=webpack://urlstack/../urlhub/urlhub.js?");
 
-    for (var i = 0; i < tokens.length; i++) {
-      if (_typeof(tokens[i]) === 'object') {
-        matches[i] = new RegExp('^(?:' + tokens[i].pattern + ')$');
-      }
-    }
+/***/ }),
 
-    return function (obj, opts) {
-      var path = '';
-      var data = obj || {};
-      var options = opts || {};
-      var encode = options.pretty ? encodeURIComponentPretty : encodeURIComponent;
+/***/ "./urlstack.js":
+/*!*********************!*\
+  !*** ./urlstack.js ***!
+  \*********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-      for (var i = 0; i < tokens.length; i++) {
-        var token = tokens[i];
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return create; });\n/* harmony import */ var urlhub_urlhub__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! urlhub/urlhub */ \"../urlhub/urlhub.js\");\n/* harmony import */ var urlhub_urlhub__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(urlhub_urlhub__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var urlhub_nodeStrategy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! urlhub/nodeStrategy */ \"../urlhub/nodeStrategy.js\");\n/* harmony import */ var urlhub_nodeStrategy__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(urlhub_nodeStrategy__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var urlhub_hashStrategy__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! urlhub/hashStrategy */ \"../urlhub/hashStrategy.js\");\n/* harmony import */ var urlhub_hashStrategy__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(urlhub_hashStrategy__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var urlhub_pushStrategy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! urlhub/pushStrategy */ \"../urlhub/pushStrategy.js\");\n/* harmony import */ var urlhub_pushStrategy__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(urlhub_pushStrategy__WEBPACK_IMPORTED_MODULE_3__);\nfunction _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }\n\nfunction _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }\n\n\n\n\n // A wrapper around urlhub to better manage a stack\n// Changes in the current routes will be stacking the screens,\n// if going back the screens don't get unmounted, there is an index\n// that points to the current active route\n//\n// The route also handles tab screens. Navegating in a tab screen doesn't\n// update the main stack, but the children inside the tab screen\n// If we imagine a linear stack of routes like this:\n// /a ---> /a/tab ---> /a/tab/2 ---> /a/tab/2/details ( activeIndex: 2 )\n// [0]     [1]         [2]           [3]\n// But the real stack that handles the tab screens would be like this:\n//\n//   [0]     [1]         [2]\n//   /a ---> /a/tab ---> /a/tab/2/details (activeIndex: 1)\n//              |\n//              V\n// [/a/tab/1, /a/tab/2, /a/tab/3 ] (activeTabIndex: 1)\n// [0]        [1]       [2]\n//\n// So there is a new stack for every tab\n\nfunction create(routes, options) {\n  var strategy;\n\n  if (typeof document === 'undefined') {\n    strategy = urlhub_nodeStrategy__WEBPACK_IMPORTED_MODULE_1___default.a;\n  } else if (options && options.strategy === 'hash') {\n    strategy = urlhub_hashStrategy__WEBPACK_IMPORTED_MODULE_2___default.a;\n  } else {\n    strategy = urlhub_pushStrategy__WEBPACK_IMPORTED_MODULE_3___default.a;\n  }\n\n  var router = urlhub_urlhub__WEBPACK_IMPORTED_MODULE_0___default.a.create({\n    strategy: strategy\n  }); // callbacks registered for be called on route changes\n\n  var callbacks = [];\n  var stackRouter = {\n    // The actual urlhub router\n    urlhub: router,\n    // The stack of screens in place, with nested tabs [{Screen, route, isTabs, isModal, key}]\n    stack: [],\n    // The current screen in the view port\n    activeIndex: -1,\n    // Route cache to generate new routes\n    _nestedStack: [],\n    // Last navigated URLs\n    _lastNavigated: [],\n    modal: {\n      active: false,\n      stack: [],\n      activeIndex: -1\n    },\n    // What to do when the URL changes\n    onChange: function onChange(handler) {\n      callbacks.push(handler);\n    },\n    // The main method to update the current screen\n    navigate: function navigate(route) {\n      var isBack = route === this._lastNavigated[this._lastNavigated.length - 2];\n\n      if (isBack) {\n        this._lastNavigated.pop(); // unfortunatelly this is buggy in chrome\n        // router.back();\n\n\n        router.push.apply(router, arguments);\n      } else {\n        this._lastNavigated.push(route);\n\n        router.push.apply(router, arguments);\n      }\n    }\n  }; // Set routes and our callback that will generate the stacks\n\n  router.setRoutes(routes);\n  router.onChange(createRouteChanger(stackRouter, routes, callbacks)); // Some extra methods from urlhub\n\n  ['start', 'stop', 'onBeforeChange', 'replace'].forEach(function (method) {\n    stackRouter[method] = function () {\n      return this.urlhub[method].apply(this.urlhub, arguments);\n    };\n  });\n  return stackRouter;\n} // Helper to translate urlhub's location changes to the model {stack, index}\n\nfunction createRouteChanger(router, routes, callbacks) {\n  // Get the hierarchy of absolute routes\n  var routeData = getRouteData(routes);\n\n  var onChange = function onChange(location) {\n    // Check if the change hasn't been programmatic (by the browser history or address bar )\n    var route = location.pathname + location.search + location.hash;\n\n    if (route !== router._lastNavigated[router._lastNavigated.length - 1]) {\n      // In this case we flush the last navigated as we can't rely on our history to try to predict\n      // going back interactions anymore\n      router._lastNavigated = [];\n    } // Create a nested stack based on the current location\n\n\n    var nestedStack = createNestedStack(location, routeData);\n\n    var _mergeStacks = mergeStacks(router._nestedStack || [], nestedStack, routeData),\n        stack = _mergeStacks.stack,\n        index = _mergeStacks.index;\n\n    setStacksAndIndexes(router, splitStack(stack), index, routeData); // Update attributes of the router\n\n    router.location = location;\n    router._nestedStack = stack; // Call user's callbacks\n\n    callbacks.forEach(function (clbk) {\n      return clbk(location);\n    });\n  };\n\n  return onChange;\n}\n\nfunction createNestedStack(location, routeData) {\n  var matchIds = location.matchIds;\n  var inTab = false;\n  var stack = [];\n  matchIds.forEach(function (route) {\n    var data = routeData[route];\n\n    if (inTab) {\n      // If we are in a tab we won't push this route to the main stack,\n      // just update the activeIndex\n      inTab.tabs.activeIndex = findTab(route, inTab.tabs.stack); // Get out the stack\n\n      inTab = false;\n      return;\n    }\n\n    var item = createStackItem(route, location, data);\n\n    if (item.isTabs) {\n      // Push all children\n      item.tabs = {\n        activeIndex: 0,\n        stack: routeData[item.route].children.map(function (child) {\n          return createStackItem(route + child.path, location, routeData[route + child.path]);\n        })\n      };\n      inTab = item;\n    }\n\n    stack.push(item);\n  });\n\n  if (inTab) {\n    // This means that the last screen in the hierarchy was a tab wrapper\n    // Check if we have any tab to show\n    if (!inTab.tabs.stack.length) {\n      console.warn('Urlstack: Hit a tabs URL without any children: ' + tabScreen.path);\n    }\n  }\n\n  return stack;\n}\n\nfunction splitStack(nestedStack) {\n  var allStacks = [];\n  var currentStack = [];\n  nestedStack.forEach(function (item) {\n    if (item.isModal) {\n      allStacks.push(currentStack);\n      currentStack = [item];\n    } else {\n      currentStack.push(item);\n    }\n  });\n\n  if (currentStack.length) {\n    allStacks.push(currentStack);\n  }\n\n  return allStacks;\n}\n\nfunction setStacksAndIndexes(router, stacks, targetIndex, routeData) {\n  if (!stacks[0].length) {\n    // If the first element is empty means that we are in a modal\n    if (!router.stack.length) {\n      // if the currentstack is empty we need to get the default screen\n      var bgRoute = routeData[stacks[1][0].route].backgroundRoute || '/*';\n      var location = router.urlhub.match(bgRoute);\n\n      var _mergeStacks2 = mergeStacks([], createNestedStack(location, routeData), routeData),\n          stack = _mergeStacks2.stack,\n          index = _mergeStacks2.index;\n\n      router.stack = stack;\n      router.activeIndex = index;\n    } // otherwise we need to preserve the current stack\n\n  } else {\n    router.stack = stacks[0];\n    router.activeIndex = Math.max(0, Math.min(targetIndex, stacks[0].length - 1));\n\n    if (router.modal) {\n      router.modal.active = false;\n    }\n  }\n\n  if (stacks.length > 1) {\n    if (!router.modal) {\n      router.modal = {\n        stack: [],\n        activeIndex: 0\n      };\n    }\n\n    router.modal.active = targetIndex >= 0;\n    setStacksAndIndexes(router.modal, stacks.slice(1), targetIndex - stacks[0].length, routeData);\n  }\n}\n\nfunction createStackItem(route, location, routeData) {\n  return {\n    Screen: routeData.cb,\n    route: route,\n    isTabs: !!routeData.isTabs,\n    isModal: !!routeData.isModal,\n    location: location,\n    path: getRoutePath(route, location.pathname),\n    key: generateKey()\n  };\n}\n\nfunction getRoutePath(route, pathname) {\n  var routeParts = route.split('/');\n  var pathParts = pathname.split('/');\n  var routePath = [];\n  routeParts.forEach(function (p, i) {\n    routePath.push(pathParts[i] || p);\n  });\n  return routePath.join('/');\n}\n\nfunction mergeStacks(currentStack, candidateStack, routeData) {\n  var nextStack = [];\n  var i = 0;\n  var sameRoot = true;\n  var current = currentStack[0];\n  var candidate = candidateStack[0];\n\n  while (current || candidate) {\n    if (sameRoot && current && candidate) {\n      if (current.Screen === candidate.Screen) {\n        nextStack.push(mergeItems(current, candidate, routeData));\n\n        if (current.path !== candidate.path) {\n          // If the paths are not the same, some parameter might have changed\n          // discard the rest of the current stack. We already have reused the id\n          sameRoot = false;\n        }\n      } else {\n        sameRoot = false;\n        nextStack.push(candidate);\n      }\n    } else if (sameRoot && current) {\n      nextStack.push(current);\n    } else if (candidate) {\n      nextStack.push(candidate);\n    } // else if( current ) do nothing because is not the same root\n\n\n    i++;\n    current = currentStack[i];\n    candidate = candidateStack[i];\n  }\n\n  return {\n    stack: nextStack,\n    index: candidateStack.length - 1\n  };\n}\n\nfunction mergeItems(current, candidate, routeData) {\n  var item = _objectSpread({}, candidate, {\n    key: current.key\n  });\n\n  if (item.tabs) {\n    // Merge tab stack\n    var tabStack = [];\n    var activeIndex = item.tabs.activeIndex; // Preserve current tab data, except for the active one\n\n    current.tabs.stack.forEach(function (item, i) {\n      tabStack.push(i === activeIndex ? candidate.tabs.stack[i] : item);\n      tabStack[i].key = item.key; // set the parameter visited\n\n      tabStack[i].visited = item.visited || i === activeIndex;\n    }); // Refresh the tabs\n\n    item.tabs = {\n      stack: tabStack,\n      activeIndex: activeIndex\n    };\n  }\n\n  return item;\n}\n/**\r\n * Transform the route definition for urlhub to an object where the keys are the absolute\r\n * path of every route, this way we don't need to navigate through childrens to get\r\n * the information of a router given its path.\r\n * \r\n * @param {*} routes The route object for urlhub\r\n * @param {*} parentRoute The path of the parent route to get the absolute path of children\r\n */\n\n\nfunction getRouteData(routes) {\n  var parentRoute = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';\n  var h = {};\n  routes.forEach(function (r) {\n    var route = parentRoute + r.path;\n    h[route] = r;\n\n    if (r.children) {\n      var childrenData = getRouteData(r.children, route);\n      h = _objectSpread({}, h, childrenData);\n    }\n  });\n  return h;\n}\n/**\r\n * Generate a random key to identify a route\r\n */\n\n\nfunction generateKey() {\n  var number = Math.floor(Math.random() * 100000); // Make sure it starts with a varter - j is first varter of my name :)\n\n  return 'j' + number.toString(36);\n}\n\nfunction findTab(route, stack) {\n  var i = stack.length;\n\n  while (i--) {\n    if (stack[i].route === route) {\n      return i;\n    }\n  } // By default we show the first tab\n\n\n  return 0;\n}\n\n//# sourceURL=webpack://urlstack/./urlstack.js?");
 
-        if (typeof token === 'string') {
-          path += token;
-          continue;
-        }
+/***/ })
 
-        var value = data[token.name];
-        var segment;
-
-        if (value == null) {
-          if (token.optional) {
-            // Prepend partial segment prefixes.
-            if (token.partial) {
-              path += token.prefix;
-            }
-
-            continue;
-          } else {
-            throw new TypeError('Expected "' + token.name + '" to be defined');
-          }
-        }
-
-        if (isarray(value)) {
-          if (!token.repeat) {
-            throw new TypeError('Expected "' + token.name + '" to not repeat, but received `' + JSON.stringify(value) + '`');
-          }
-
-          if (value.length === 0) {
-            if (token.optional) {
-              continue;
-            } else {
-              throw new TypeError('Expected "' + token.name + '" to not be empty');
-            }
-          }
-
-          for (var j = 0; j < value.length; j++) {
-            segment = encode(value[j]);
-
-            if (!matches[i].test(segment)) {
-              throw new TypeError('Expected all "' + token.name + '" to match "' + token.pattern + '", but received `' + JSON.stringify(segment) + '`');
-            }
-
-            path += (j === 0 ? token.prefix : token.delimiter) + segment;
-          }
-
-          continue;
-        }
-
-        segment = token.asterisk ? encodeAsterisk(value) : encode(value);
-
-        if (!matches[i].test(segment)) {
-          throw new TypeError('Expected "' + token.name + '" to match "' + token.pattern + '", but received "' + segment + '"');
-        }
-
-        path += token.prefix + segment;
-      }
-
-      return path;
-    };
-  }
-  /**
-   * Escape a regular expression string.
-   *
-   * @param  {string} str
-   * @return {string}
-   */
-
-
-  function escapeString(str) {
-    return str.replace(/([.+*?=^!:${}()[\]|\/\\])/g, '\\$1');
-  }
-  /**
-   * Escape the capturing group by escaping special characters and meaning.
-   *
-   * @param  {string} group
-   * @return {string}
-   */
-
-
-  function escapeGroup(group) {
-    return group.replace(/([=!:$\/()])/g, '\\$1');
-  }
-  /**
-   * Attach the keys as a property of the regexp.
-   *
-   * @param  {!RegExp} re
-   * @param  {Array}   keys
-   * @return {!RegExp}
-   */
-
-
-  function attachKeys(re, keys) {
-    re.keys = keys;
-    return re;
-  }
-  /**
-   * Get the flags for a regexp from the options.
-   *
-   * @param  {Object} options
-   * @return {string}
-   */
-
-
-  function flags(options) {
-    return options.sensitive ? '' : 'i';
-  }
-  /**
-   * Pull out keys from a regexp.
-   *
-   * @param  {!RegExp} path
-   * @param  {!Array}  keys
-   * @return {!RegExp}
-   */
-
-
-  function regexpToRegexp(path, keys) {
-    // Use a negative lookahead to match only capturing groups.
-    var groups = path.source.match(/\((?!\?)/g);
-
-    if (groups) {
-      for (var i = 0; i < groups.length; i++) {
-        keys.push({
-          name: i,
-          prefix: null,
-          delimiter: null,
-          optional: false,
-          repeat: false,
-          partial: false,
-          asterisk: false,
-          pattern: null
-        });
-      }
-    }
-
-    return attachKeys(path, keys);
-  }
-  /**
-   * Transform an array into a regexp.
-   *
-   * @param  {!Array}  path
-   * @param  {Array}   keys
-   * @param  {!Object} options
-   * @return {!RegExp}
-   */
-
-
-  function arrayToRegexp(path, keys, options) {
-    var parts = [];
-
-    for (var i = 0; i < path.length; i++) {
-      parts.push(pathToRegexp(path[i], keys, options).source);
-    }
-
-    var regexp = new RegExp('(?:' + parts.join('|') + ')', flags(options));
-    return attachKeys(regexp, keys);
-  }
-  /**
-   * Create a path regexp from string input.
-   *
-   * @param  {string}  path
-   * @param  {!Array}  keys
-   * @param  {!Object} options
-   * @return {!RegExp}
-   */
-
-
-  function stringToRegexp(path, keys, options) {
-    return tokensToRegExp(parse(path, options), keys, options);
-  }
-  /**
-   * Expose a function for taking tokens and returning a RegExp.
-   *
-   * @param  {!Array}          tokens
-   * @param  {(Array|Object)=} keys
-   * @param  {Object=}         options
-   * @return {!RegExp}
-   */
-
-
-  function tokensToRegExp(tokens, keys, options) {
-    if (!isarray(keys)) {
-      options =
-      /** @type {!Object} */
-      keys || options;
-      keys = [];
-    }
-
-    options = options || {};
-    var strict = options.strict;
-    var end = options.end !== false;
-    var route = ''; // Iterate over the tokens and create our regexp string.
-
-    for (var i = 0; i < tokens.length; i++) {
-      var token = tokens[i];
-
-      if (typeof token === 'string') {
-        route += escapeString(token);
-      } else {
-        var prefix = escapeString(token.prefix);
-        var capture = '(?:' + token.pattern + ')';
-        keys.push(token);
-
-        if (token.repeat) {
-          capture += '(?:' + prefix + capture + ')*';
-        }
-
-        if (token.optional) {
-          if (!token.partial) {
-            capture = '(?:' + prefix + '(' + capture + '))?';
-          } else {
-            capture = prefix + '(' + capture + ')?';
-          }
-        } else {
-          capture = prefix + '(' + capture + ')';
-        }
-
-        route += capture;
-      }
-    }
-
-    var delimiter = escapeString(options.delimiter || '/');
-    var endsWithDelimiter = route.slice(-delimiter.length) === delimiter; // In non-strict mode we allow a slash at the end of match. If the path to
-    // match already ends with a slash, we remove it for consistency. The slash
-    // is valid at the end of a path match, not in the middle. This is important
-    // in non-ending mode, where "/test/" shouldn't match "/test//route".
-
-    if (!strict) {
-      route = (endsWithDelimiter ? route.slice(0, -delimiter.length) : route) + '(?:' + delimiter + '(?=$))?';
-    }
-
-    if (end) {
-      route += '$';
-    } else {
-      // In non-ending mode, we need the capturing groups to match as much as
-      // possible by using a positive lookahead to the end or next path segment.
-      route += strict && endsWithDelimiter ? '' : '(?=' + delimiter + '|$)';
-    }
-
-    return attachKeys(new RegExp('^' + route, flags(options)), keys);
-  }
-  /**
-   * Normalize the given path string, returning a regular expression.
-   *
-   * An empty array can be passed in for the keys, which will hold the
-   * placeholder key descriptions. For example, using `/user/:id`, `keys` will
-   * contain `[{ name: 'id', delimiter: '/', optional: false, repeat: false }]`.
-   *
-   * @param  {(string|RegExp|Array)} path
-   * @param  {(Array|Object)=}       keys
-   * @param  {Object=}               options
-   * @return {!RegExp}
-   */
-
-
-  function pathToRegexp(path, keys, options) {
-    if (!isarray(keys)) {
-      options =
-      /** @type {!Object} */
-      keys || options;
-      keys = [];
-    }
-
-    options = options || {};
-
-    if (path instanceof RegExp) {
-      return regexpToRegexp(path,
-      /** @type {!Array} */
-      keys);
-    }
-
-    if (isarray(path)) {
-      return arrayToRegexp(
-      /** @type {!Array} */
-      path,
-      /** @type {!Array} */
-      keys, options);
-    }
-
-    return stringToRegexp(
-    /** @type {string} */
-    path,
-    /** @type {!Array} */
-    keys, options);
-  }
-
-  var pathToRegexp$1 = /*#__PURE__*/Object.freeze({
-
-  });
-
-  function unwrapExports (x) {
-  	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
-  }
-
-  function createCommonjsModule(fn, module) {
-  	return module = { exports: {} }, fn(module, module.exports), module.exports;
-  }
-
-  var dist = createCommonjsModule(function (module, exports) {
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  var _a = Object.prototype,
-      toString = _a.toString,
-      hasOwnProperty = _a.hasOwnProperty;
-  var OBJECT_TYPE = "[object Object]";
-  var ARRAY_TYPE = "[object Array]";
-  /**
-   * @description
-   * Creates a querystring style object from a nested one.
-   *
-   * @example
-   * var result = flatten({ a: { b: 1 }, c: { d: 1 } });
-   * result; //-> { "a[b]": 1, "c[d]": 2 }
-   *
-   * @param obj The object to flatten.
-   */
-
-  function flatten(obj, path, result) {
-    var type = toString.call(obj);
-
-    if (result === undefined) {
-      if (type === OBJECT_TYPE) {
-        result = {};
-      } else if (type === ARRAY_TYPE) {
-        result = [];
-      } else {
-        return;
-      }
-    }
-
-    for (var key in obj) {
-      /* istanbul ignore if */
-      if (!hasOwnProperty.call(obj, key)) {
-        continue;
-      }
-
-      var val = obj[key];
-
-      if (val == null) {
-        continue;
-      }
-
-      switch (toString.call(val)) {
-        case ARRAY_TYPE:
-        case OBJECT_TYPE:
-          flatten(val, join(path, key), result);
-          break;
-
-        default:
-          result[join(path, key)] = val;
-          break;
-      }
-    }
-
-    return result;
-  }
-
-  exports.flatten = flatten;
-  /**
-   * Join path keys using query string `a[b]` style syntax.
-   */
-
-  function join(path, key) {
-    return path != null ? path + "[" + key + "]" : key;
-  }
-  });
-
-  unwrapExports(dist);
-  var dist_1 = dist.flatten;
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  var matchArray = /[^\[\]]+|\[\]/g;
-  var matchInteger = /^\d+$/;
-  var temp = [];
-  /**
-   * @description
-   * A setter for querystring style fields like "a[b][c]".
-   * The setter will create arrays for repeat keys and supports the "[]" push syntax.
-   *
-   * @example
-   * deep({}, "a[b][c]", 1) // { a: { b: { c: 1 } } }
-   *
-   * @param obj The object to set a value on.
-   * @param path The querystring path to set.
-   * @param value The value to set at the path.
-   */
-
-  function deep(obj, path, value) {
-    var keys = path === "" ? [""] : path.match(matchArray);
-    var len = keys.length;
-    var cur = obj;
-    var prev;
-    var key;
-    var exists;
-
-    for (var i = 0; i < len; i++) {
-      prev = cur;
-      key = keys[i];
-      var next = keys[i + 1];
-
-      if (key === "[]") {
-        key = cur.length;
-      } // Make path as we go.
-
-
-      cur = (exists = _typeof(cur) === "object" && key in cur) ? cur[key] : // Check if the next path is an explicit array.
-      cur[key] = next === "[]" || matchInteger.test(next) ? [] : {};
-    }
-
-    prev[key] = exists ? temp.concat(cur, value) : value;
-    return obj;
-  }
-
-  exports.deep = deep;
-  /**
-   * @description
-   * Appends to an object using query string syntax with "[]" syntax push support.
-   *
-   * @example
-   * shallow({}, "a[b][c]", 1) // { "a[b][c]": 1 }
-   * shallow({}, "a[]", 1) // { a: [1] }
-   *
-   * @param obj The object to set a value on.
-   * @param path The querystring path to set.
-   * @param value The value to set at the path.
-   */
-
-  function shallow(obj, key, val) {
-    key = arrayPushIndexes(obj, key);
-    obj[key] = key in obj ? temp.concat(obj[key], val) : val;
-    return obj;
-  }
-
-  exports.shallow = shallow;
-  /**
-   * Given a qs style key and an object will convert array push syntax to integers.
-   * Eg: a[b][] -> a[b][0]
-   */
-
-  function arrayPushIndexes(obj, key) {
-    var path = key.split("[]");
-
-    if (path.length === 1) {
-      return key;
-    }
-
-    var cur = path[0];
-    var keys = Object.keys(obj);
-
-    for (var i = 1, len = path.length; i < len; i++) {
-      cur += "[" + findLastIndex(keys, cur) + "]" + path[i];
-    }
-
-    return cur;
-  }
-  /**
-   * Given a path to push to will return the next valid index if possible.
-   * Eg: a[b][] -> 0 // if array is empty.
-   */
-
-
-  function findLastIndex(keys, path) {
-    var last = -1;
-
-    for (var i = keys.length; i--;) {
-      var key = keys[i];
-
-      if (key.indexOf(path) !== 0) {
-        continue;
-      }
-
-      var index = Number(key.replace(path, "").slice(1, key.indexOf("]") - 1));
-
-      if (index > last) {
-        last = index;
-      }
-    }
-
-    return last + 1;
-  }
-
-  var dist$1 = /*#__PURE__*/Object.freeze({
-
-  });
-
-  var dist$2 = createCommonjsModule(function (module, exports) {
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-
-
-
-
-
-  var parseReg = /([^=?&]+)=?([^&]*)/g;
-  /**
-   * @description
-   * Converts an object to a query string and optionally flattens it.
-   *
-   * @example
-   * stringify({ a: 1 }) === 'a=1'
-   *
-   * stringify({ a: { b: 1 } }, true) === 'a[b]=1'
-   *
-   * @param obj The object to stringify.
-   * @param deep If true the object will be flattened using query string syntax.
-   */
-
-  function stringify(obj, deep) {
-    if (deep) {
-      obj = dist.flatten(obj);
-    }
-
-    var keys = Object.keys(obj);
-
-    if (!keys.length) {
-      return "";
-    }
-
-    for (var i = 0, len = keys.length; i < len; i++) {
-      var key = keys[i];
-      keys[i] = encodeURIComponent(key) + "=" + encodeURIComponent(obj[key]);
-    }
-
-    return keys.join("&");
-  }
-
-  exports.stringify = stringify;
-  /**
-   * @description
-   * Parses a query string and optionally unflattens it.
-   *
-   * @example
-   * parse('a=1&b=2&') === "{ a: '1', b: '2' }"
-   *
-   * parse('a=1&b[c]=2', true) === "{ a: '1', b: { c: '1' } }"
-   *
-   * @param str The string to parse.
-   * @param deep If true, nested querystring paths will be resolved.
-   */
-
-  function parse(str, deep) {
-    var set = deep ? dist$1.deep : dist$1.shallow;
-    var result = {};
-
-    for (;;) {
-      var part = parseReg.exec(str);
-
-      if (!part) {
-        break;
-      }
-
-      var prop = part[1],
-          val = part[2];
-      set(result, decodeURIComponent(prop), decodeURIComponent(val));
-    }
-
-    return result;
-  }
-
-  exports.parse = parse;
-  });
-
-  unwrapExports(dist$2);
-  var dist_1$1 = dist$2.stringify;
-  var dist_2 = dist$2.parse;
-
-  /*
-  routes = {
-    path: '/hola',
-    cb: fn,
-    children: []
-  }
-  */
-  // parseUrl function needed for testing
-
-
-  var parseUrl;
-
-  if (typeof window !== 'undefined') {
-    parseUrl = function parseUrl(url) {
-      var a = document.createElement('a');
-      a.href = url;
-      return a;
-    };
-  } // The lib
-
-
-  var urlhub = {
-    create: function create(options) {
-      return new Urlhub(options);
-    },
-    joinUrls: joinUrls // just for testing never used, see helpers at bottom
-    // The class
-
-  };
-
-  var Urlhub = function Urlhub(options) {
-    if (!options || !options.strategy) {
-      throw new Error('Router needs an strategy to listen to url changes.');
-    }
-
-    var s = options.strategy;
-    var ops = {};
-    Object.keys(options).forEach(function (key) {
-      if (key === 'strategy') return;
-      ops[key] = options[key];
-    });
-    s.init && s.init(ops);
-    this.strategy = s; // Callbacks before the route change
-
-    this.obc = []; // Callbacks to be called on route change
-
-    this.cbs = [];
-  };
-
-  var prototype = {
-    setRoutes: function setRoutes(routes) {
-      this.routes = this.parseRoutes(routes);
-    },
-    // Route translation methods
-    parseRoutes: function parseRoutes(routes, parent) {
-      if (!routes) console.warn('No routes provided to parseRoutes');
-
-      if (!routes.length) {
-        routes = [routes];
-      }
-
-      var parsedRoutes = [],
-          me = this;
-      routes.forEach(function (r) {
-        var path = joinUrls(parent, r.path);
-        var params = [],
-            parsed = {
-          regex: pathToRegexp$1(path, params),
-          id: path,
-          cb: r.cb
-        };
-        parsed.params = params.map(function (p) {
-          return p.name;
-        });
-
-        if (r.children && r.children.length) {
-          parsed.childRegex = pathToRegexp$1(path, [], {
-            end: false
-          });
-          parsed.children = me.parseRoutes(r.children, path);
-        }
-
-        parsedRoutes.push(parsed);
-      });
-      return parsedRoutes;
-    },
-    match: function match(location, candidates, isChild) {
-      var i = 0,
-          url = sanitizeUrl(location),
-          path,
-          found,
-          match,
-          c;
-
-      if (!candidates) {
-        candidates = this.routes;
-      }
-
-      var parsed = (this.strategy.parseUrl || parseUrl)(url);
-      path = parsed.pathname; // Normalize pathname
-
-      if (path[0] !== '/') {
-        path = '/' + path;
-      }
-
-      while (i < candidates.length && !found) {
-        c = candidates[i];
-
-        if (c.childRegex) {
-          //console.log( 'failed', c.regex, path );
-          found = c.childRegex.exec(path);
-
-          if (found) {
-            match = this.match(url, c.children, true);
-
-            if (match.matches.length) {
-              match.matches = [c.cb].concat(match.matches);
-              match.matchIds = [c.id].concat(match.matchIds);
-              return match; // The recursive call will give all the info
-            } else {
-              found = false;
-            }
-          }
-        }
-
-        found = c.regex.exec(path);
-
-        if (found) {
-          found = {
-            id: c.id,
-            cb: c.cb,
-            params: found.slice(1)
-          };
-        }
-
-        if (!found) {
-          i++;
-        }
-      }
-
-      var matches = [];
-      var matchIds = [];
-
-      if (found) {
-        matches.push(found.cb);
-        matchIds.push(found.id);
-      } else if (!isChild) {
-        console.error('There is no route match for ' + location);
-      }
-
-      match = {
-        matches: matches,
-        matchIds: matchIds,
-        pathname: path,
-        search: parsed.search,
-        query: dist$2.parse(parsed.search),
-        hash: parsed.hash,
-        route: found && found.id || false,
-        params: {}
-      };
-
-      if (found) {
-        c.params.forEach(function (p, i) {
-          match.params[p] = found.params[i];
-        });
-      }
-
-      return match;
-    },
-    // Routing methods
-    start: function start() {
-      var me = this;
-      this.strategy.onChange(function () {
-        var change = me.checkChange();
-        if (!change.next) return;
-
-        if (change.current !== change.next) {
-          me.strategy.replace(change.next);
-        } else {
-          me.location = change.nextLocation;
-          me.cbs.forEach(function (cb) {
-            cb(change.nextLocation);
-          });
-        }
-      });
-      this.strategy.start();
-      this.location = this.match(this.strategy.getLocation());
-      return this.location;
-    },
-    stop: function stop() {
-      this.strategy.onChange(function () {});
-    },
-    refresh: function refresh() {
-      var change = this.checkChange();
-      change.next && change.current !== change.next && this.strategy.replace(change.next);
-    },
-    checkChange: function checkChange() {
-      var current = this.strategy.getLocation(),
-          nextLocation = this.runOnBeforeChange(this.match(current)),
-          next = nextLocation && nextLocation.pathname + nextLocation.search + nextLocation.hash;
-      return {
-        current: current,
-        next: next,
-        nextLocation: nextLocation
-      };
-    },
-    runOnBeforeChange: function runOnBeforeChange(match) {
-      var me = this;
-      this.obc.forEach(function (cb) {
-        if (match) {
-          match = cb(match);
-
-          if (typeof match === 'string') {
-            match = me.match(match);
-          }
-        }
-      });
-      return match;
-    },
-    onBeforeChange: function onBeforeChange(cb) {
-      this.obc.push(cb);
-    },
-    onChange: function onChange(cb) {
-      this.cbs.push(cb);
-    },
-    push: function push(location) {
-      this.updateLocation('push', location);
-    },
-    replace: function replace(location) {
-      this.updateLocation('replace', location);
-    },
-    back: function back() {
-      this.strategy.back();
-    },
-    updateLocation: function updateLocation(method, location) {
-      var current = this.strategy.getLocation();
-      var next;
-
-      if (typeof location === 'string') {
-        next = location;
-      } else {
-        next = mergeLocations(this.match(current), location);
-      }
-
-      var nextLocation = this.runOnBeforeChange(this.match(next));
-
-      if (nextLocation) {
-        next = nextLocation.pathname + nextLocation.search + nextLocation.hash;
-
-        if (current !== next) {
-          this.strategy[method](next);
-        }
-      }
-    }
-  };
-
-  for (var method in prototype) {
-    Urlhub.prototype[method] = prototype[method];
-  }
-
-  var urlhub_1 = urlhub;
-  /********* HELPERS */
-
-  function joinUrls(one, two) {
-    var first = sanitizeUrl(one),
-        second = sanitizeUrl(two);
-    if (!one) return second;
-    if (!two) return first;
-
-    if (first === '/') {
-      return second;
-    } else if (second === '/') {
-      return first;
-    } else {
-      return first + second;
-    }
-  }
-
-  function sanitizeUrl(url) {
-    if (!url) return '/';
-    var sanitized = url;
-
-    if (sanitized[sanitized.length - 1] === '/') {
-      sanitized = sanitized.slice(0, sanitized.length - 1);
-    }
-
-    if (sanitized[0] !== '/') {
-      sanitized = '/' + sanitized;
-    }
-
-    return sanitized;
-  }
-
-  function mergeLocations(prev, next) {
-    var location = Object.assign(prev, next),
-        search = location.search;
-
-    if (Object.keys(location.query).length) {
-      search = '?' + dist$2.stringify(location.query);
-    } else {
-      search = '';
-    }
-
-    return location.pathname + search + location.hash;
-  }
-
-  var _onChange = function onChange() {};
-
-  var nodeStrategy = {
-    init: function init(options) {
-      this.history = [options.initialLocation || '/'];
-    },
-    start: function start() {
-      this.emit();
-    },
-    push: function push(location) {
-      this.history.push(location);
-      this.emit();
-    },
-    replace: function replace(location) {
-      this.history[this.history.length] = location;
-      this.emit();
-    },
-    onChange: function onChange(cb) {
-      _onChange = cb;
-    },
-    getLocation: function getLocation() {
-      return this.history[this.history.length - 1];
-    },
-    emit: function emit() {
-      _onChange && _onChange(this.getLocation());
-    },
-    parseUrl: function parseUrl(str) {
-      var parts = str.split('?');
-      var searchParts = parts[1] ? parts[1].split('#') : [];
-      return {
-        pathname: parts[0],
-        search: searchParts[0] ? '?' + searchParts[0] : '',
-        hash: searchParts[1] ? '#' + searchParts[1] : '',
-        query: searchParts[0] ? dist$2.parse(searchParts[0]) : {}
-      };
-    },
-    back: function back() {
-      if (this.history.length > 1) {
-        this.history.pop();
-      }
-
-      this.emit();
-    }
-  };
-  var nodeStrategy_1 = nodeStrategy;
-
-  var _onChange$1 = function onChange() {};
-
-  var hashStrategy = {
-    init: function init(options) {},
-    start: function start() {
-      var me = this;
-
-      if (!location.hash) {
-        location.hash = '#/';
-      } // Register event listener
-
-
-      window.onhashchange = function () {
-        me.emit();
-      }; // Emit first onChange
-
-
-      me.emit();
-    },
-    push: function push(route) {
-      window.location.hash = '#' + route;
-    },
-    replace: function replace(route) {
-      var url = location.protocol + '//' + location.host + location.pathname + '#' + route;
-      location.replace(url);
-    },
-    onChange: function onChange(cb) {
-      _onChange$1 = cb;
-    },
-    getLocation: function getLocation() {
-      if (!location.hash) {
-        return '/';
-      } else if (location.hash[1] !== '/') {
-        return '/' + location.hash;
-      }
-
-      return location.hash.slice(1);
-    },
-    emit: function emit() {
-      _onChange$1(this.getLocation());
-    },
-    back: function back() {
-      window.history.back();
-    }
-  };
-  var hashStrategy_1 = hashStrategy;
-
-  var _onChange$2 = function onChange() {};
-
-  var pushStrategy = {
-    init: function init(options) {
-      this.basePath = options.basePath || '';
-
-      if (this.basePath.slice(-1) === '/') {
-        this.basePath = this.basePath.slice(0, -1);
-      }
-    },
-    start: function start() {
-      var me = this; // Register event listener
-
-      window.onpopstate = function () {
-        me.emit();
-      }; // Emit first onChange
-
-
-      me.emit();
-    },
-    push: function push(location) {
-      history.pushState({}, '', this.basePath + location);
-      this.emit();
-    },
-    replace: function replace(location) {
-      history.replaceState({}, '', this.basePath + location);
-      this.emit();
-    },
-    onChange: function onChange(cb) {
-      _onChange$2 = cb;
-    },
-    getLocation: function getLocation() {
-      var l = location.pathname + location.search + location.hash,
-          basePathLength = this.basePath.length;
-
-      if (l.slice(0, basePathLength) === this.basePath) {
-        l = l.slice(basePathLength);
-      }
-
-      return l;
-    },
-    emit: function emit() {
-      _onChange$2 && _onChange$2(this.getLocation());
-    },
-    back: function back() {
-      window.history.back();
-    }
-  };
-  var pushStrategy_1 = pushStrategy;
-
-  // Changes in the current routes will be stacking the screens,
-  // if going back the screens don't get unmounted, there is an index
-  // that points to the current active route
-  //
-  // The route also handles tab screens. Navegating in a tab screen doesn't
-  // update the main stack, but the children inside the tab screen
-  // If we imagine a linear stack of routes like this:
-  // /a ---> /a/tab ---> /a/tab/2 ---> /a/tab/2/details ( activeIndex: 2 )
-  // [0]     [1]         [2]           [3]
-  // But the real stack that handles the tab screens would be like this:
-  //
-  //   [0]     [1]         [2]
-  //   /a ---> /a/tab ---> /a/tab/2/details (activeIndex: 1)
-  //              |
-  //              V
-  // [/a/tab/1, /a/tab/2, /a/tab/3 ] (activeTabIndex: 1)
-  // [0]        [1]       [2]
-  //
-  // So there is a new stack for every tab
-
-  function create(routes, options) {
-    var strategy;
-
-    if (typeof document === 'undefined') {
-      strategy = nodeStrategy_1;
-    } else if (options && options.strategy === 'hash') {
-      strategy = hashStrategy_1;
-    } else {
-      strategy = pushStrategy_1;
-    }
-
-    var router = urlhub_1.create({
-      strategy: strategy
-    }); // callbacks registered for be called on route changes
-
-    var callbacks = [];
-    var stackRouter = {
-      // The actual urlhub router
-      urlhub: router,
-      // The stack of screens in place, with nested tabs [{Screen, route, isTabs, isModal, key}]
-      stack: [],
-      // The current screen in the view port
-      activeIndex: -1,
-      // Route cache to generate new routes
-      _nestedStack: [],
-      // Last navigated URLs
-      _lastNavigated: [],
-      modal: {
-        active: false,
-        stack: [],
-        activeIndex: -1
-      },
-      // What to do when the URL changes
-      onChange: function onChange(handler) {
-        callbacks.push(handler);
-      },
-      // The main method to update the current screen
-      navigate: function navigate(route) {
-        var isBack = route === this._lastNavigated[this._lastNavigated.length - 2];
-
-        if (isBack) {
-          this._lastNavigated.pop(); // unfortunatelly this is buggy in chrome
-          // router.back();
-
-
-          router.push.apply(router, arguments);
-        } else {
-          this._lastNavigated.push(route);
-
-          router.push.apply(router, arguments);
-        }
-      }
-    }; // Set routes and our callback that will generate the stacks
-
-    router.setRoutes(routes);
-    router.onChange(createRouteChanger(stackRouter, routes, callbacks)); // Some extra methods from urlhub
-
-    ['start', 'stop', 'onBeforeChange', 'replace'].forEach(function (method) {
-      stackRouter[method] = function () {
-        return this.urlhub[method].apply(this.urlhub, arguments);
-      };
-    });
-    return stackRouter;
-  } // Helper to translate urlhub's location changes to the model {stack, index}
-
-  function createRouteChanger(router, routes, callbacks) {
-    // Get the hierarchy of absolute routes
-    var routeData = getRouteData(routes);
-
-    var onChange = function onChange(location) {
-      // Check if the change hasn't been programmatic (by the browser history or address bar )
-      var route = location.pathname + location.search + location.hash;
-
-      if (route !== router._lastNavigated[router._lastNavigated.length - 1]) {
-        // In this case we flush the last navigated as we can't rely on our history to try to predict
-        // going back interactions anymore
-        router._lastNavigated = [];
-      } // Create a nested stack based on the current location
-
-
-      var nestedStack = createNestedStack(location, routeData);
-
-      var _mergeStacks = mergeStacks(router._nestedStack || [], nestedStack, routeData),
-          stack = _mergeStacks.stack,
-          index = _mergeStacks.index;
-
-      setStacksAndIndexes(router, splitStack(stack), index, routeData); // Update attributes of the router
-
-      router.location = location;
-      router._nestedStack = stack; // Call user's callbacks
-
-      callbacks.forEach(function (clbk) {
-        return clbk(location);
-      });
-    };
-
-    return onChange;
-  }
-
-  function createNestedStack(location, routeData) {
-    var matchIds = location.matchIds;
-    var inTab = false;
-    var stack = [];
-    matchIds.forEach(function (route) {
-      var data = routeData[route];
-
-      if (inTab) {
-        // If we are in a tab we won't push this route to the main stack,
-        // just update the activeIndex
-        inTab.tabs.activeIndex = findTab(route, inTab.tabs.stack); // Get out the stack
-
-        inTab = false;
-        return;
-      }
-
-      var item = createStackItem(route, location, data);
-
-      if (item.isTabs) {
-        // Push all children
-        item.tabs = {
-          activeIndex: 0,
-          stack: routeData[item.route].children.map(function (child) {
-            return createStackItem(route + child.path, location, routeData[route + child.path]);
-          })
-        };
-        inTab = item;
-      }
-
-      stack.push(item);
-    });
-
-    if (inTab) {
-      // This means that the last screen in the hierarchy was a tab wrapper
-      // Check if we have any tab to show
-      if (!inTab.tabs.stack.length) {
-        console.warn('Urlstack: Hit a tabs URL without any children: ' + tabScreen.path);
-      }
-    }
-
-    return stack;
-  }
-
-  function splitStack(nestedStack) {
-    var allStacks = [];
-    var currentStack = [];
-    nestedStack.forEach(function (item) {
-      if (item.isModal) {
-        allStacks.push(currentStack);
-        currentStack = [item];
-      } else {
-        currentStack.push(item);
-      }
-    });
-
-    if (currentStack.length) {
-      allStacks.push(currentStack);
-    }
-
-    return allStacks;
-  }
-
-  function setStacksAndIndexes(router, stacks, targetIndex, routeData) {
-    if (!stacks[0].length) {
-      // If the first element is empty means that we are in a modal
-      if (!router.stack.length) {
-        // if the currentstack is empty we need to get the default screen
-        var bgRoute = routeData[stacks[1][0].route].backgroundRoute || '/*';
-        var location = router.urlhub.match(bgRoute);
-
-        var _mergeStacks2 = mergeStacks([], createNestedStack(location, routeData), routeData),
-            stack = _mergeStacks2.stack,
-            index = _mergeStacks2.index;
-
-        router.stack = stack;
-        router.activeIndex = index;
-      } // otherwise we need to preserve the current stack
-
-    } else {
-      router.stack = stacks[0];
-      router.activeIndex = Math.max(0, Math.min(targetIndex, stacks[0].length - 1));
-
-      if (router.modal) {
-        router.modal.active = false;
-      }
-    }
-
-    if (stacks.length > 1) {
-      if (!router.modal) {
-        router.modal = {
-          stack: [],
-          activeIndex: 0
-        };
-      }
-
-      router.modal.active = targetIndex >= 0;
-      setStacksAndIndexes(router.modal, stacks.slice(1), targetIndex - stacks[0].length, routeData);
-    }
-  }
-
-  function createStackItem(route, location, routeData) {
-    return {
-      Screen: routeData.cb,
-      route: route,
-      isTabs: !!routeData.isTabs,
-      isModal: !!routeData.isModal,
-      location: location,
-      path: getRoutePath(route, location.pathname),
-      key: generateKey()
-    };
-  }
-
-  function getRoutePath(route, pathname) {
-    var routeParts = route.split('/');
-    var pathParts = pathname.split('/');
-    var routePath = [];
-    routeParts.forEach(function (p, i) {
-      routePath.push(pathParts[i] || p);
-    });
-    return routePath.join('/');
-  }
-
-  function mergeStacks(currentStack, candidateStack, routeData) {
-    var nextStack = [];
-    var i = 0;
-    var sameRoot = true;
-    var current = currentStack[0];
-    var candidate = candidateStack[0];
-
-    while (current || candidate) {
-      if (sameRoot && current && candidate) {
-        if (current.Screen === candidate.Screen) {
-          nextStack.push(mergeItems(current, candidate, routeData));
-
-          if (current.path !== candidate.path) {
-            // If the paths are not the same, some parameter might have changed
-            // discard the rest of the current stack. We already have reused the id
-            sameRoot = false;
-          }
-        } else {
-          sameRoot = false;
-          nextStack.push(candidate);
-        }
-      } else if (sameRoot && current) {
-        nextStack.push(current);
-      } else if (candidate) {
-        nextStack.push(candidate);
-      } // else if( current ) do nothing because is not the same root
-
-
-      i++;
-      current = currentStack[i];
-      candidate = candidateStack[i];
-    }
-
-    return {
-      stack: nextStack,
-      index: candidateStack.length - 1
-    };
-  }
-
-  function mergeItems(current, candidate, routeData) {
-    var item = Object.assign({}, candidate, {
-      key: current.key
-    });
-
-    if (item.tabs) {
-      // Merge tab stack
-      var tabStack = [];
-      var activeIndex = item.tabs.activeIndex; // Preserve current tab data, except for the active one
-
-      current.tabs.stack.forEach(function (item, i) {
-        tabStack.push(i === activeIndex ? candidate.tabs.stack[i] : item);
-        tabStack[i].key = item.key; // set the parameter visited
-
-        tabStack[i].visited = item.visited || i === activeIndex;
-      }); // Refresh the tabs
-
-      item.tabs = {
-        stack: tabStack,
-        activeIndex: activeIndex
-      };
-    }
-
-    return item;
-  }
-  /**
-   * Transform the route definition for urlhub to an object where the keys are the absolute
-   * path of every route, this way we don't need to navigate through childrens to get
-   * the information of a router given its path.
-   * 
-   * @param {*} routes The route object for urlhub
-   * @param {*} parentRoute The path of the parent route to get the absolute path of children
-   */
-
-
-  function getRouteData(routes) {
-    var parentRoute = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-    var h = {};
-    routes.forEach(function (r) {
-      var route = parentRoute + r.path;
-      h[route] = r;
-
-      if (r.children) {
-        var childrenData = getRouteData(r.children, route);
-        h = Object.assign({}, h, childrenData);
-      }
-    });
-    return h;
-  }
-  /**
-   * Generate a random key to identify a route
-   */
-
-
-  function generateKey() {
-    var number = Math.floor(Math.random() * 100000); // Make sure it starts with a varter - j is first varter of my name :)
-
-    return 'j' + number.toString(36);
-  }
-
-  function findTab(route, stack) {
-    var i = stack.length;
-
-    while (i--) {
-      if (stack[i].route === route) {
-        return i;
-      }
-    } // By default we show the first tab
-
-
-    return 0;
-  }
-
-  return create;
-
-}));
-//# sourceMappingURL=urlstack.js.map
+/******/ });
+});

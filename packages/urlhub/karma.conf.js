@@ -4,11 +4,14 @@ module.exports = function (config) {
         frameworks: ['jasmine'],
 
         files: [
-          '../dist/urlhub.js',
-          'routeData.js',
-          'test-routes.js',
-          'test-navigation.js',
-          'test-navigation-hash.js'
+            '../dist/hashStrategy.js',
+            '../dist/pushStrategy.js',
+            '../dist/nodeStrategy.js',
+            '../dist/urlhub.js',
+            'routeData.js',
+            'test-routes.js',
+            'test-navigation.js',
+            'test-navigation-hash.js'
         ],
 
         plugins: [

@@ -1,4 +1,4 @@
-import urlhub from 'urlhub'
+import urlhub from 'urlhub/urlhub'
 import nodeStrategy from 'urlhub/nodeStrategy'
 import hashStrategy from 'urlhub/hashStrategy'
 import pushStrategy from 'urlhub/pushStrategy'

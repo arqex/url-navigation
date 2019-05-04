@@ -5,6 +5,10 @@
     "lerna": "^3.13.1"
   },
   "scripts": {
+    "urlhub:build": "cd packages/urlhub && npm run build",
+    "urlhub:test": "cd packages/urlhub && npm run test",
+    "urlstack:build": "cd packages/urlstack && npm run build",
+    "urlstack:test": "cd packages/urlstack && npm run test",
     "playground": "cd packages/react-urlstack-playground && npm run web"
   }
 }

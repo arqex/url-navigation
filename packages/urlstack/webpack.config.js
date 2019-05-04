@@ -5,11 +5,13 @@ console.log('WEBPAAAAAAAAAAACK')
 module.exports = {
   entry: "./urlstack.js",
   output: {
-    path: Path.join( __dirname, 'build' ),
+    path: Path.join( __dirname, 'dist' ),
     filename: 'urlstack.js',
     library: 'urlstack',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
+    globalObject: 'typeof self !== \'undefined\' ? self : this',
   },
+  mode: 'development',
   module:{
     rules: [
       {

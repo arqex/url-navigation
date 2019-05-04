@@ -1,21 +1,30 @@
 var Path = require('path');
 
 module.exports = {
-  entry: "./urlhub.js",
-  output: {
-    path: Path.join( __dirname, 'build' ),
-    filename: 'urlhub.js',
-    library: 'urlhub',
-    libraryTarget: 'umd'
+  entry: {
+    urlhub: "./urlhub.js", 
+    pushStrategy: "./pushStrategy.js",
+    hashStrategy: "./hashStrategy.js", 
+    nodeStrategy: "./nodeStrategy.js"
   },
+  output: {
+    path: Path.join( __dirname, 'dist' ),
+    filename: '[name].js',
+    library: '[name]',
+    libraryTarget: 'umd',
+    globalObject: 'typeof self !== \'undefined\' ? self : this',
+  },
+  mode: 'development',
   module:{
     rules: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        // exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-          presets: ['env']
+          options: {
+            presets: ['env']
+          }
         }
       }
     ]
