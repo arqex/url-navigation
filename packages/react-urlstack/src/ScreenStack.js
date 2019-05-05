@@ -92,7 +92,8 @@ export default class ScreenStack extends Component {
 					onUnmount={ this._onScreenUnmount }
 					drawer={ this.props.drawer }
 					breakPoint={ this.props.breakPoint }
-					key={ key } />
+					key={ key }
+					navProps={ this.props.navProps } />
 			)
 		})
 		return screens;

@@ -214,7 +214,10 @@ var prototype = {
     this.obc.forEach( function(cb){
       if( match ){
         match = cb( match );
-        if( typeof match === 'string' ){
+        if( !match ){
+          console.warn('*** urlhub: The route interceptor returned a falsy value.')
+        }
+        else if( typeof match === 'string' ){
           match = me.match( match );
         }
       }

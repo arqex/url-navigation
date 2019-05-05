@@ -36,7 +36,7 @@ export default class DrawerWrapper extends Component {
 	}
 
 	render(){
-		let { Drawer, router, collapsible } = this.props
+		let { Drawer, router, collapsible, navProps } = this.props
 		let handle, overlay
 		if( collapsible ){
 			handle = <View style={ styles.handle } />
@@ -74,7 +74,7 @@ export default class DrawerWrapper extends Component {
 					onDrag={ e => this.onDrag( e ) }
 					animatedValueX={ this.drawerPos }>
 					<View style={ drawerStyles } ref="layout" onLayout={ e => this.updateLayout(e) }>
-						<Drawer router={ router } drawer={ this._drawerMethods } />
+						<Drawer router={ router } drawer={ this._drawerMethods } { ...navProps } />
 						{ handle }
 					</View>
 				</Interactable.View>

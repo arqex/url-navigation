@@ -50,7 +50,7 @@ export default class Navigator extends Component {
 		let router = this.router;
 		if( !router ) return null;
 		
-		let { DrawerComponent, transitions } = this.props
+		let { DrawerComponent, interceptor, routes, transitions, ...props } = this.props
 		let { layout, indexes } = this.state
 		
 		let transition = this.currentTransition
@@ -68,7 +68,8 @@ export default class Navigator extends Component {
 							breakPoint={ breakPoint }
 							indexes={indexes.stack}
 							collapsible={ transition.collapsibleDrawer }
-							Drawer={ DrawerComponent } />
+							Drawer={ DrawerComponent }
+							navProps={ props } />
 						<ScreenStack router={router}
 							screenTransition={transition}
 							stackTransition={modalTransition.stack}
@@ -77,7 +78,8 @@ export default class Navigator extends Component {
 							stack={stack}
 							index={index}
 							layout={layout}
-							drawer={this.drawer} />
+							drawer={this.drawer}
+							navProps={props}/>
 						<ModalWrapper router={router}
 							stack={router.modal.stack}
 							index={router.modal.stack}
@@ -85,7 +87,8 @@ export default class Navigator extends Component {
 							breakPoint={ breakPoint }
 							indexes={indexes.modal}
 							layout={layout}
-							drawer={this.drawer} />
+							drawer={this.drawer}
+							navProps={props} />
 					</View>
 				</View>
 			</SharedElementWrapper>

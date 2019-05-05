@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleSheet, View, Text, Platform} from 'react-native'
+import {StyleSheet, View, Platform} from 'react-native'
 import {Navigator} from 'react-urlstack'
 import routes from './routes'
 import SideMenu from './components/menu/SideMenu'
@@ -14,6 +14,7 @@ export default function StackApp(props){
       <Navigator routes={ routes }
         interceptor={ l => l.pathname === '/foo' ? '/tabs' : l }
         DrawerComponent={ SideMenu }
+        foo="bar"
         transitionTime={ 1000 } /> 
     </View>
   )

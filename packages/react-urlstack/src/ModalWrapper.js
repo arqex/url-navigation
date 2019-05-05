@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { StyleSheet, Animated, View, Text } from 'react-native'
+import { StyleSheet, Animated, View } from 'react-native'
 import {animatedStyles} from './utils/animatedStyles'
 
 
@@ -16,7 +16,7 @@ export default class ModalWrapper extends Component {
 		]
 
 		let item = this.props.stack[0];
-		let content = item ? <item.Screen /> : <View></View>;
+		let content = item ? <item.Screen drawer={ this.props.drawer } {...this.props.navProps}/> : <View></View>;
 
 		return (
 			<Animated.View style={ containerStyles }>

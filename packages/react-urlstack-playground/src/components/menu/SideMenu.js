@@ -7,6 +7,7 @@ import {View, StyleSheet} from 'react-native'
 export default class SideMenu extends Component {
   constructor( props ){
     super( props )
+    console.log( props )
     this._lastRoute = this.getRoute()
     this.onRouteUpdate = this.onRouteUpdate.bind( this );
     props.router.onChange( this.onRouteUpdate );
