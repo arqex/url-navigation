@@ -1,6 +1,6 @@
 {
   "name": "urlhub",
-  "version": "0.7.5",
+  "version": "0.7.6",
   "description": "Another router library, yet the simplest one.",
   "main": "./dist/urlhub.js",
   "scripts": {
