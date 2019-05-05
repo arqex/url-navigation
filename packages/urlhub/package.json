@@ -5,7 +5,7 @@
   "main": "./dist/urlhub.js",
   "scripts": {
     "test": "npx karma start karma.conf.js --single-run && \"./node_modules/.bin/jasmine\"",
-    "build": "build.sh",
+    "build": "./build.sh",
     "preversion": "npm run build && npm test",
     "version": "npm run build"
   },
@@ -23,7 +23,7 @@
     "url": "https://github.com/arqex/url-navigation/tree/master/packages/urlhub"
   },
   "devDependencies": {
-    "babel-core": "^7.3.0",
+    "@babel/core": "^7.4.4",
     "babel-loader": "^8.0.5",
     "babel-preset-env": "^1.5.1",
     "jasmine": "^3.3.1",

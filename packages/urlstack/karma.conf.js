@@ -3,7 +3,7 @@ var configData = {
     frameworks: ['jasmine'],
 
     files: [
-      '../dist/urlstack.js',
+      { pattern: '../dist/urlstack.js', type: 'module' },
       'routedata.js',
       'test-navigation.js',
       'test-location.js'
