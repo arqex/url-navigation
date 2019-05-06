@@ -3,7 +3,7 @@ import { StyleSheet, Animated, View } from 'react-native'
 import {animatedStyles} from './utils/animatedStyles'
 import Interactable from 'react-interactable'
 
-let handleWidth = 30
+let handleWidth = 15
 
 export default class DrawerWrapper extends Component {
 	constructor(props){
@@ -46,7 +46,7 @@ export default class DrawerWrapper extends Component {
 			</Animated.View>
 			)
 		}
-		let width = this.state.open ? this.drawerWidth * 2 : this.drawerWidth + handleWidth;
+		let width = this.state.open ? this.drawerWidth * 2 : this.drawerWidth;
 
 		let containerStyles = [
 			styles.container,
