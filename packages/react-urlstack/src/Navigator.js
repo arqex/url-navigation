@@ -250,10 +250,6 @@ export default class Navigator extends Component {
 }
 
 let statusBarHeight = Platform.OS === 'android' ? StatusBar.currentHeight : 0
-if( Platform.OS === 'web' ){
-	// Hack to try styles with a status bar in the web
-	statusBarHeight = 20;
-}
 
 let styles = StyleSheet.create({
 	windowWrapper: {
