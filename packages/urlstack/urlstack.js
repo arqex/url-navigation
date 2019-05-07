@@ -26,6 +26,11 @@ import pushStrategy from 'urlhub/pushStrategy'
 //
 // So there is a new stack for every tab
 
+var router = urlhub.create({});
+export {router}
+
+var initialized = false;
+
 export default function create( routes, options ){
 	var strategy;
 	if( typeof document === 'undefined' ){
@@ -38,7 +43,11 @@ export default function create( routes, options ){
 		strategy = pushStrategy
 	}
 
-	var router = urlhub.create({strategy});
+	if( initialized ){
+		console.warn('Urlstack: Creating a new stack router. This shouldnt its urlhub' );
+	}
+
+	router.setStrategy( strategy )
 
 	// callbacks registered for be called on route changes
 	var callbacks = [];

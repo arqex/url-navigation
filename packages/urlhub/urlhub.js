@@ -27,23 +27,19 @@ var urlhub = {
   joinUrls: joinUrls // just for testing never used, see helpers at bottom
 }
 
-
 // The class
 var Urlhub = function( options ){
-  if( !options || !options.strategy ){
-    throw new Error('Router needs an strategy to listen to url changes.');
-  }
-
-  var s = options.strategy;
-
   var ops = {};
-  Object.keys( options ).forEach( function( key ){
+  Object.keys( options || {} ).forEach( function( key ){
     if( key === 'strategy' ) return;
     ops[key] = options[key];
   });
 
-  s.init && s.init( ops );
-  this.strategy = s;
+  this.ops = ops;
+
+  if( options.strategy ){
+    this.setStrategy( options.strategy );
+  }
 
   // Callbacks before the route change
   this.obc = [];
@@ -53,6 +49,10 @@ var Urlhub = function( options ){
 }
 
 var prototype = {
+  setStrategy: function( strategy ){
+    strategy.init && strategy.init( this.ops );
+    this.strategy = strategy;
+  },
   setRoutes: function( routes ){
     this.routes = this.parseRoutes( routes );
   },
