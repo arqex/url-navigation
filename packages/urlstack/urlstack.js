@@ -43,18 +43,22 @@ export default function create( routes, options ){
 		strategy = pushStrategy
 	}
 
+	let r = router;
 	if( initialized ){
-		console.warn('Urlstack: Creating a new stack router. This shouldnt its urlhub' );
+		console.warn('Urlstack: Creating a new stack router. It will have its own version of urlhub but it wont be published by the package' );
+		r = urlhub.create( {strategy} )
 	}
-
-	router.setStrategy( strategy )
+	else {
+		initialized = true;
+		r.setStrategy( strategy )
+	}
 
 	// callbacks registered for be called on route changes
 	var callbacks = [];
 
 	var stackRouter = {
 		// The actual urlhub router
-		urlhub: router,
+		urlhub: r,
 
 		// The stack of screens in place, with nested tabs [{Screen, route, isTabs, isModal, key}]
 		stack: [],
@@ -82,19 +86,24 @@ export default function create( routes, options ){
 			if( isBack ){
 				this._lastNavigated.pop();
 				// unfortunatelly this is buggy in chrome
-				// router.back();
+				// r.back();
 				router.push.apply( router, arguments );
 			}
 			else {
 				this._lastNavigated.push( route );
-				router.push.apply( router, arguments );
+				r.push.apply( router, arguments );
 			}
+		},
+
+		setRoutes: function( routes ){
+			r.setRoutes( routes )
+			r.onChange( createRouteChanger( this, routes, callbacks ) )
 		}
 	};
 
-	// Set routes and our callback that will generate the stacks
-	router.setRoutes( routes );
-	router.onChange( createRouteChanger( stackRouter, routes, callbacks ) );
+	if( routes ){
+		stackRouter.setRoutes( routes )
+	}
 
 	// Some extra methods from urlhub
 	['start', 'stop', 'onBeforeChange', 'replace'].forEach( method => {

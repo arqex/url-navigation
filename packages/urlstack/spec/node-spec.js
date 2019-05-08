@@ -1,4 +1,4 @@
-global.urlstack = require('../dist/urlstack').default
+global.urlstack = require('../dist/urlstack')
 global.routes = require('../tests/routedata')
 
 // try tests in node

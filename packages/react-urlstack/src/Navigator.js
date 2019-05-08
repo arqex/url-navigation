@@ -13,6 +13,9 @@ import {memoize} from './utils/utils'
 
 const isWeb = Platform.OS === 'web'
 
+let router = createRouter();
+export {router};
+
 export default class Navigator extends Component {
 	constructor( props ){
 		super( props )
@@ -135,7 +138,7 @@ export default class Navigator extends Component {
 	}
 
 	startRouter(){
-		let router = createRouter( this.props.routes );
+		router.setRoutes( this.props.routes );
 
 		let interceptor = this.props.interceptor;
 		if( interceptor ){

@@ -1,12 +1,14 @@
 import React from 'react'
 import {StyleSheet, View, Platform} from 'react-native'
-import {Navigator} from 'react-urlstack'
+import {Navigator, router} from 'react-urlstack'
 import routes from './routes'
 import SideMenu from './components/menu/SideMenu'
 
 if( Platform.OS === 'web' ){
   require('./utils/loadIconFont')
 }
+
+window.router = router;
 
 export default function StackApp(props){
   return (

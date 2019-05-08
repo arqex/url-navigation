@@ -8,7 +8,7 @@
 var r;
 function createRouter( initialRoute ){
 	r && r.stop();
-	r = urlstack( routes, {strategy: 'hash'} );
+	r = (urlstack.default ? urlstack.default : urlstack)( routes, {strategy: 'hash'} );
 	r.navigate( initialRoute );
 	r.start();
 	return r;
@@ -52,6 +52,21 @@ function tryModalStack( router, done, states ){
 /////////////
 // TEST CASES
 /////////////
+
+describe('Exported router', function(){
+	it('must be the same than the first urlstack created', function(){
+		let stackRouter = createRouter('/list');
+		console.log( urlstack )
+		// console.log( 'HEY', stackRouter.urlhub, 'YO', urlstack.router )
+		expect( stackRouter.urlhub ).toBe( urlstack.router )
+	})
+
+	it('must not be the same than the one from other urlstack creations', function(){
+		let stackRouter = createRouter('/tabs');
+		expect( stackRouter.urlhub === urlstack.router ).toBe( false )
+	})
+})
+
 describe( 'Router start and stop', function(){
   it('Stopped router shouldn´t call the listeners', function( done ){
 		var router = createRouter('/tabs')
