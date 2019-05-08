@@ -1,4 +1,3 @@
-/* urlstack 0.6.6 by Javier Marquez. MIT licensed. https://github.com/arqex/url-navigation/tree/master/packages/urlstack */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
