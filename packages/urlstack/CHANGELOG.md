@@ -1,3 +1,10 @@
+# v0.7.0
+* Urlhub is now exported as part of the module, so we can `import {router} from 'urlstack'` even before creating a urlstack router, to be accessible to other parts of the apps.
+* Routes and strategy are not mandatory now to create a stack router.
+
+# v0.6.4
+* Moved into url-navigation repo
+
 # v0.6.1
 * Fixes tab stack not preserving keys when navigating
 

@@ -79,6 +79,7 @@ var urlhub = require('urlhub');
 var hashStrategy = require('urlhub/hashStrategy');
 
 var router = urlhub.create( {strategy: hashStrategy} );
+
 router.setRoutes( routes );
 router.onChange( function( location ){
   // The location object is the same returned by the `match` method.
@@ -89,6 +90,13 @@ router.onChange( function( location ){
 // Start listening to URL changes
 router.start();
 ```
+
+We can also create a router, to get the instance and set the strategy afterwards:
+```js
+var router = urlhub.create({})
+// ... later ...
+router.setStrategy( hashStrategy );
+``` 
 
 ## Navigating
 UrlHub come with some useful methods to let the developers navigate programmatically without hassle.

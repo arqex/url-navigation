@@ -1,3 +1,9 @@
+# v0.8.0
+* Strategy or routes are not mandatory now to create a router.
+
+# v0.7.4
+* Moved to the url-navigation repo
+
 # v0.7.2
 * Allow to add a onClick handler to the Link component
 
