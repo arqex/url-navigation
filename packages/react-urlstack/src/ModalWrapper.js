@@ -24,10 +24,8 @@ export default class ModalWrapper extends Component {
 					indexes={ this.props.indexes }
 					layout={ this.props.layout }
 					{...this.props.navProps } />
-
 			)
 		}
-		let content = item ? <item.Screen drawer={ this.props.drawer } {...this.props.navProps}/> : <View></View>;
 
 		return (
 			<Animated.View style={ containerStyles }>
