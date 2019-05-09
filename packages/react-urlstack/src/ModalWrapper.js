@@ -16,6 +16,17 @@ export default class ModalWrapper extends Component {
 		]
 
 		let item = this.props.stack[0];
+		let content;
+		if( item ){
+			content =(	
+				<item.Screen router={ this.props.router }
+					drawer={ this.props.drawer }
+					indexes={ this.props.indexes }
+					layout={ this.props.layout }
+					{...this.props.navProps } />
+
+			)
+		}
 		let content = item ? <item.Screen drawer={ this.props.drawer } {...this.props.navProps}/> : <View></View>;
 
 		return (

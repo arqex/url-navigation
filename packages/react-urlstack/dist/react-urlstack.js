@@ -1,5 +1,5 @@
 /*!
- * react-urlstack v0.2.9
+ * react-urlstack v0.3.0
  * (c) Javier Marquez
  * Released under the MIT License.
  */
