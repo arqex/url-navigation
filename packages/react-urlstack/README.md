@@ -49,11 +49,23 @@ export default [
   { path: '/modal', component: Modal, isModal: true },
 
   // Default route
-  { path: '/*', cb: Screen404 }
+  { path: '/*', component: Screen404 }
 ]
 ```
 
 To know more about the route definition [see urlstack docs](https://github.com/arqex/url-navigation/tree/master/packages/urlstack).
+
+**Screens**
+As we have seen in the routes, we pass the components that will render the screens for every path.
+
+Those screen components will receive the following props:
+* *`router`*: The router will allow to navigate programmatically with `router.navigate`.
+* *`drawer`*: Will allow to open or close the drawer using `drawer.open()` or `drawer.close()`.
+* *`layout`*: The current dimensions of the screen `{x, y, width, height}`.
+* *`location`*: The location object from when the last time the screen was active. With urlstack we can have more than one screen mounted at the same time in order to have nice transitions when the URL changes. So there is the chance that the current URL doesn't have the parameters expected by a mounted screen, that's why the screens receive a location prop that retains the paramaters from when the screen was active. A screen is active when is the one currently shown by the navigator, or it's parent of the one shown.
+* *`indexes`*: Contains information of what's the current status of the screen in the stack. `indexes.transition` is an `AnimatedValue` that will be animated when the transitions happen, so we can use it internally to animate the content when the screen is leaving/appearing.
+* *`breakPoint`: The current breakPoint that depends on the `transition` definition in the `<Navigator>` component and the current `layout`.
+* *`Any other prop passed to Navigator`*: If we pass any prop to the `<Navigator>` object, those will be passed down to our screens, so we can inject dependencies from outside. 
 
 # API
 
