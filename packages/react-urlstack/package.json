@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "playground": "node ./react-urlstack-playground/scripts/start.js",
     "build": "npx bili",
-    "version": "npm run build"
+    "preversion": "npm run build"
   },
   "repository": {
     "type": "git",
