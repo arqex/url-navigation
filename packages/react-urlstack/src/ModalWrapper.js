@@ -17,7 +17,7 @@ export default class ModalWrapper extends Component {
 
 		let item = this.props.stack[0];
 		let content;
-		console.log( this.props )
+		
 		if( item ){
 			content =(	
 				<item.Screen router={ this.props.router }
