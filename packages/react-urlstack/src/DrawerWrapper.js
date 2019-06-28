@@ -51,7 +51,7 @@ export default class DrawerWrapper extends Component {
 		}
 
 		let width = this.state.open ? this.drawerWidth * 2 : this.drawerWidth + handleWidth;
-		let left = this.layoutUpdated ? handleWidth - this.drawerWidth : -3000;
+		let left = this.layoutUpdated ? - this.drawerWidth : -3000;
 
 		let containerStyles = [
 			styles.container,
@@ -66,7 +66,7 @@ export default class DrawerWrapper extends Component {
 		]
 
 		let snapPoints = [
-			{ x: 0, id: 'closed' }, {x: this.drawerWidth - handleWidth - 10, id: 'open'}
+			{ x: 0, id: 'closed' }, {x: this.drawerWidth, id: 'open'}
 		];
 
 		return (
@@ -75,7 +75,7 @@ export default class DrawerWrapper extends Component {
 				<Interactable.View dragEnabled={ !!collapsible }
 					ref="drawer"
 					horizontalOnly={ true } snapPoints={ snapPoints }
-					boundaries={{right: this.drawerWidth - handleWidth, bounce: 0}}
+					boundaries={{right: this.drawerWidth, bounce: 0}}
 					onDrag={ e => this.onDrag( e ) }
 					animatedValueX={ this.drawerPos }>
 					<View style={ drawerStyles } ref="layout" onLayout={ e => this.updateLayout(e) }>
@@ -97,7 +97,7 @@ export default class DrawerWrapper extends Component {
 
 		this.layoutUpdated = true;
 		this.animatedStyles = animatedStyles(this.props.transition, this.props.indexes, layout );
-		this.drawerWidth = layout.width;
+		this.drawerWidth = layout.width - handleWidth;
 		this.calculateDrawerIndex();
 		this.forceUpdate();
 	}
