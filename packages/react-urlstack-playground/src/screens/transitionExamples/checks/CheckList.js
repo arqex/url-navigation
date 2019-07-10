@@ -5,6 +5,9 @@ import CheckItem from './CheckItem';
 import data from './checkData'
 
 export default function CheckList( props ){
+	window.Animated = Animated;
+	window.aniValue = props.indexes.parent.transition;
+
 	let checkScale = {
 		transform: [
 			{scale: props.indexes.parent.transition.interpolate({

@@ -98,6 +98,15 @@ export default function create( routes, options ){
 		setRoutes: function( routes ){
 			r.setRoutes( routes )
 			r.onChange( createRouteChanger( this, routes, callbacks ) )
+		},
+
+		setStrategy: function( strategyName ){
+			let strategy = pushStrategy;
+			if( strategyName === 'hash' ){
+				strategy = hashStrategy
+			}
+			
+			r.setStrategy( strategy );
 		}
 	};
 
