@@ -144,8 +144,6 @@ export default class TransitionElement extends Component {
 	}
 
 	componentDidMount(){
-		console.log( 'Mounted', this.props.entering.box, this.props.leaving.box );
-
 		if( this.transition !== false ){
 			// Start the animation
 			Animated.timing( this.animatedValue, {

@@ -35,11 +35,16 @@ export default class Hoverable extends Component {
 	}
 
 	render() {
-		const { children, hoverStyle, touchable, ...touchableProps } = this.props;
+		const { children, hoverStyle, touchable, onPress, ...touchableProps } = this.props;
 		let css;
 
+		
+		let tonPress = e => {
+			onPress && onPress( e )
+		}
+
 		if( this.cn ){
-			touchableProps.className = this.cn
+			touchableProps['data-cn'] = this.cn
 			css = (
 				<style>{ this.renderHoverStyle( hoverStyle ) }</style>
 			)
@@ -47,10 +52,8 @@ export default class Hoverable extends Component {
 
 		let C = touchableComponents[touchable];
 
-		console.log( touchableProps )
-
 		return (
-			<C { ...touchableProps }>
+			<C onPress={ tonPress } { ...touchableProps }>
 				{ children }
 				{ css }
 			</C>
@@ -61,10 +64,10 @@ export default class Hoverable extends Component {
 		let css = '';
 		Object.keys( hoverStyle ).forEach( selector => {
 			if( selector === 'wrapper' ){
-				css += `.${ this.cn }:hover { ${hoverStyle[selector]} } `
+				css += `[data-cn=${ this.cn }]:hover { ${hoverStyle[selector]} } `
 			}
 			else {
-				css += `.${ this.cn }:hover .${selector} { ${hoverStyle[selector]} } `
+				css += `[data-cn=${ this.cn }]:hover .${selector} { ${hoverStyle[selector]} } `
 			}
 		})
 		return css;

@@ -65,6 +65,14 @@ class TestList extends Component {
 		let { queue } = this.props.data;
 		this.props.navigation.push('addArticle', { queueId: queue.id })
 	}
+	
+	componentWillEnter(){
+		console.log( 'Stack list entering' )
+	}
+	
+	componentWillLeave(){
+		console.log( 'Stack list leaving' )
+	}
 }
 
 const styles = StyleSheet.create({

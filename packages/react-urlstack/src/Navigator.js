@@ -39,10 +39,12 @@ export default class Navigator extends Component {
 
 	static propTypes = {
 		transitions: PropTypes.object,
-		interceptor: PropTypes.func
+		interceptor: PropTypes.func,
+		strategy: PropTypes.string
 	}
 
 	static defaultProps = {
+		strategy: 'hash',
 		transitions: {
 			0: mobileTransition,
 			800: desktopTransition
@@ -138,6 +140,7 @@ export default class Navigator extends Component {
 	}
 
 	startRouter(){
+		router.setStrategy( this.props.strategy );
 		router.setRoutes( this.props.routes );
 
 		let interceptor = this.props.interceptor;
@@ -184,7 +187,6 @@ export default class Navigator extends Component {
 	}
 
 	_onLayout( layout ){
-		console.log( layout )
 		this.calculateTransition( this.props.transitions, layout.width )
 		this.setState( {layout} )
 	}

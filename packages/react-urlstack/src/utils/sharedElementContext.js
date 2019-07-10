@@ -85,10 +85,6 @@ class TransitionLayer extends Component {
 
 		let elements = this.state.elements;
 		let list = Object.keys( elements ).map( id => elements[id] );
-
-		if( list.length > 0 ){
-			console.log( 'couples found, rendering', list.length )
-		}
 		
 		return (
 			<View style={ [styles.container, box] } pointerEvents="none">

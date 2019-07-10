@@ -47,7 +47,6 @@ class SharedElement extends Component {
 
 		if( !isWeb && !this.layouted ){
 			// We need the layout to calculate the measures properly in native
-			console.log('skipping')
 			return setTimeout( () => this.measure( offset ) );
 		}
 		
@@ -57,8 +56,6 @@ class SharedElement extends Component {
 				x: x - offset.x,
 				y: y - offset.y
 			};
-			
-			console.log('measured' );
 		})
 	}
 

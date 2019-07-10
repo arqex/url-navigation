@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, createRef} from 'react'
 import PropTypes from 'prop-types'
 import {Animated, View, StyleSheet, Platform} from 'react-native'
 import {memoize, bind} from './utils/utils'
@@ -35,6 +35,8 @@ export default class ScreenStack extends Component {
 			indexes: this.calculateIndexes({}, stack, index ),
 			layout: false
 		}
+
+		this.screenRefs = {};
 
 		this.previousIndex = index;
 		this.previousScreen = stack[index].key;
@@ -73,6 +75,7 @@ export default class ScreenStack extends Component {
 		if( !layout ) return;
 
 		let screens = [];
+		let isShowing = this.props.stackIndexes.showing;
 		stack.forEach( item => {
 			let key = item.key;
 
@@ -81,8 +84,13 @@ export default class ScreenStack extends Component {
 				return;
 			}
 
+			if( !this.screenRefs[key] ){
+				this.screenRefs[key] = createRef()
+			}
+
 			screens.push(
 				<ScreenWrapper item={ item }
+					ref={ this.screenRefs[key] }
 					ScreenStack={ ScreenStack }
 					router={ router }
 					indexes={ indexes[ key ] }
@@ -93,9 +101,11 @@ export default class ScreenStack extends Component {
 					drawer={ this.props.drawer }
 					breakPoint={ this.props.breakPoint }
 					key={ key }
+					isShowing={ isShowing }
 					navProps={ this.props.navProps } />
 			)
 		})
+
 		return screens;
 	}
 
@@ -114,7 +124,7 @@ export default class ScreenStack extends Component {
 		this.animatedStyles = animatedStyles(this.props.stackTransition, this.props.stackIndexes, e.nativeEvent.layout )
 	}
 
-	componentDidUpdate() {
+	componentDidUpdate( prevProps ) {
 		let { stack, index, screenTransition } = this.props
 		let indexes = this.calculateIndexes( this.state.indexes, stack, this.previousIndex, screenTransition )
 
@@ -160,6 +170,15 @@ export default class ScreenStack extends Component {
 			this.previousScreen = stack[index].key;
 			this.forceUpdate();
 		}
+
+		let prevShowing = prevProps.stackIndexes.showing;
+		let nextShowing = this.props.stackIndexes.showing;
+		if( prevShowing && !nextShowing ){
+			this.triggerCycleMethod( this.getCurrentItem(), 'componentWillLeave' );
+		}
+		if( !prevShowing && nextShowing ){
+			this.triggerCycleMethod( this.getCurrentItem(), 'componentWillEnter' );
+		}
 	}
 
 	/**
@@ -191,6 +210,7 @@ export default class ScreenStack extends Component {
 		// Delete tranistions not used
 		Object.keys( unusedIndexes ).forEach( key => {
 			delete indexes[key]
+			delete this.screenRefs[key]
 			updated = true;
 		})
 
@@ -239,7 +259,8 @@ export default class ScreenStack extends Component {
 			}
 
 			if( prevIndex && nextIndex && prevIndex.relative !== nextIndex.relative) {
-				let transition = this.getScreenTransition( Screen );
+				let transition = this.getScreenTransition( Screen );				
+
 				Animated.timing( nextIndex.transition, {
 					toValue: nextIndex.relative,
 					easing: transition.easing,
@@ -251,6 +272,11 @@ export default class ScreenStack extends Component {
 
 		// Signal for shared elements transition to start
 		if (prevItem && nextItem) {
+			if( this.props.stackIndexes.showing ){
+				this.triggerCycleMethod( prevItem, 'componentWillLeave' );
+				this.triggerCycleMethod( nextItem, 'componentWillEnter' );
+			}
+
 			this.context.startTransition(
 				this.getActiveScreens(prevItem),
 				this.getActiveScreens(nextItem),
@@ -271,6 +297,28 @@ export default class ScreenStack extends Component {
 		}
 
 		return keys;
+	}
+
+	getCurrentItem(){
+		const stack = this.props.stack
+		let i = stack.length
+		const indexes = this.state.indexes
+
+		while( i-- > 0 ){
+			let item = stack[i];
+			if( indexes[ item.key ].relative === 0 ){
+				return item;
+			}
+		}
+	}
+
+	triggerCycleMethod( item, method ){
+		if( !item ) return;
+
+		let ref = this.screenRefs[ item.key ];
+		if( ref && ref.current && ref.current[method] ){
+			ref.current[method]();
+		}
 	}
 
 	_onScreenReady( id ){

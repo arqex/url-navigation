@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, createRef} from 'react'
 import { StyleSheet, Animated } from 'react-native'
 import tabTransition from './defaultTransitions/tabTransition'
 import {animatedStyles} from './utils/animatedStyles'
@@ -10,6 +10,8 @@ export default class ScreenWrapper extends Component {
 		super(props)
 
 		this.id = createId()
+
+		this.screenRef = createRef()
 
 		this.setAnimatedLayout( props.indexes, props.layout )
 	}
@@ -43,10 +45,12 @@ export default class ScreenWrapper extends Component {
 	renderScreen(){
 		let { item, ScreenStack, router, transition, indexes, layout, drawer, breakPoint, navProps } = this.props;
 		let { Screen, location } = item;
+		let ref = Screen instanceof Component ? this.screenRef : undefined;
 
 		if( item.isTabs ){
 			return (
 				<Screen router={router}
+					ref={ ref }
 					location={location}
 					indexes={indexes}
 					layout={layout}
@@ -68,6 +72,7 @@ export default class ScreenWrapper extends Component {
 
 		return (
 			<Screen router={router}
+				ref={ ref }
 				location={location}
 				indexes={indexes}
 				layout={layout}
@@ -104,7 +109,31 @@ export default class ScreenWrapper extends Component {
 	}
 
 	componentWillUnmount(){
+		if( this.props.isShowing && this.props.indexes.relative === 0 ){
+			this.triggerCycleMethod('componentWillLeave')
+		}
 		this.props.onUnmount( this.props.item.key )
+	}
+
+	componentDidMount(){
+		if( this.props.isShowing && this.props.indexes.relative === 0 ){
+			this.triggerCycleMethod('componentWillEnter')
+		}
+	}
+
+	componentWillEnter(){
+		this.triggerCycleMethod('componentWillEnter')
+	}
+
+	componentWillLeave(){
+		this.triggerCycleMethod('componentWillLeave')
+	}
+
+	triggerCycleMethod( method ){
+		let ref = this.screenRef;
+		if( ref && ref.current && ref.current[method] ){
+			ref.current[method]();
+		}
 	}
 }
 
