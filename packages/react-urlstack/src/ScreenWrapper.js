@@ -45,7 +45,7 @@ export default class ScreenWrapper extends Component {
 	renderScreen(){
 		let { item, ScreenStack, router, transition, indexes, layout, drawer, breakPoint, navProps } = this.props;
 		let { Screen, location } = item;
-		let ref = Screen instanceof Component ? this.screenRef : undefined;
+		let ref = Screen.prototype instanceof Component ? this.screenRef : undefined;
 
 		if( item.isTabs ){
 			return (
@@ -131,7 +131,8 @@ export default class ScreenWrapper extends Component {
 
 	triggerCycleMethod( method ){
 		let ref = this.screenRef;
-		if( ref && ref.current && ref.current[method] ){
+		if( ref && ref.current && ref.current[method] && this.lastLFMethod !== method){
+			this.lastLFMethod = method;
 			ref.current[method]();
 		}
 	}

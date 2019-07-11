@@ -271,7 +271,7 @@ export default class ScreenStack extends Component {
 		})
 
 		// Signal for shared elements transition to start
-		if (prevItem && nextItem) {
+		if (prevItem && nextItem && prevItem !== nextItem ) {
 			if( this.props.stackIndexes.showing ){
 				this.triggerCycleMethod( prevItem, 'componentWillLeave' );
 				this.triggerCycleMethod( nextItem, 'componentWillEnter' );

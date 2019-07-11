@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, createRef} from 'react'
 import { StyleSheet, Animated, View } from 'react-native'
 import {animatedStyles} from './utils/animatedStyles'
 
@@ -6,6 +6,7 @@ import {animatedStyles} from './utils/animatedStyles'
 export default class ModalWrapper extends Component {
 	constructor(props){
 		super(props)
+		this.screenRef = createRef()
 		this.setAnimatedLayout( props.indexes, props.layout )
 	}
 
@@ -19,8 +20,11 @@ export default class ModalWrapper extends Component {
 		let content;
 		
 		if( item ){
+			let ref = item.Screen.prototype instanceof Component ? this.screenRef : undefined;
+
 			content =(	
 				<item.Screen router={ this.props.router }
+					ref={ ref }
 					drawer={ this.props.drawer }
 					indexes={ this.props.indexes }
 					layout={ this.props.layout }
@@ -65,6 +69,39 @@ export default class ModalWrapper extends Component {
 			width !== layout.width ||
 			showing !== indexes.showing
 		)
+	}
+	
+	componentWillUnmount(){
+		if( this.props.indexes.showing ){
+			this.triggerCycleMethod('componentWillLeave')
+		}
+		this.props.onUnmount( this.props.item.key )
+	}
+
+	componentDidMount(){
+		if( this.props.indexes.showing ){
+			this.triggerCycleMethod('componentWillEnter')
+		}
+	}
+
+	componentDidUpdate( prevProps ){
+		const prevShowing = prevProps.indexes.showing;
+		const nextShowing = this.props.indexes.showing;
+
+		if( prevShowing && !nextShowing ){
+			this.triggerCycleMethod('componentWillLeave')
+		}
+		else if( !prevShowing && nextShowing ){
+			this.triggerCycleMethod('componentWillEnter')
+		}
+	}
+
+	triggerCycleMethod( method ){
+		let ref = this.screenRef;
+		if( ref && ref.current && ref.current[method] && this.lastLFMethod !== method){
+			this.lastLFMethod = method;
+			ref.current[method]();
+		}
 	}
 }
 
