@@ -99,9 +99,9 @@ export default class ModalWrapper extends Component {
 	triggerCycleMethod( method ){
 		let ref = this.screenRef;
 		if( ref && ref.current && ref.current[method] && this.lastLFMethod !== method){
-			this.lastLFMethod = method;
 			ref.current[method]();
 		}
+		this.lastLFMethod = method;
 	}
 }
 
