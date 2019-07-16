@@ -256,7 +256,7 @@ export default class Navigator extends Component {
 		}
 
 		stateUpdate.indexes = indexes;
-		this.setState({indexes})
+		this.setState( stateUpdate )
 	}
 }
 

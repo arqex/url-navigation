@@ -330,6 +330,10 @@ export default class ScreenStack extends Component {
 	_onScreenUnmount( id ){
 		delete this.readyScreens[id];
 	}
+
+	shouldComponentUpdate(){
+		return !this.props.animating;
+	}
 }
 
 let styles = StyleSheet.create({
