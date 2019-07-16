@@ -222,7 +222,7 @@ export default class Navigator extends Component {
 
 	updateModalIndexes( showModal ){
 		let stateUpdate = {};
-		let indexes;
+		let indexes = this.state.indexes;
 
 		if( !indexes ){
 			indexes = {
