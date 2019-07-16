@@ -252,11 +252,17 @@ export default class Navigator extends Component {
 				easing: transitions.stack.easing,
 				duration: transitions.stack.duration || 300,
 				useNativeDriver: !isWeb
-			}).start( () => this.setState({animating: false}));
+			}).start( () => this.setState( this._endAnimation ));
 		}
 
 		stateUpdate.indexes = indexes;
 		this.setState( stateUpdate )
+	}
+	
+	_endAnimation = () => {
+		this.setState({animating: false}, () => {
+			this.forceUpdate();
+		})
 	}
 }
 

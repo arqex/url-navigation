@@ -268,7 +268,7 @@ export default class ScreenStack extends Component {
 					easing: transition.easing,
 					duration: transition.duration || 300,
 					useNativeDriver: !isWeb,
-				}).start( () => this.setState({animating: false}))
+				}).start( _this.endAnimation )
 			}
 		})
 
@@ -286,6 +286,12 @@ export default class ScreenStack extends Component {
 				prevItem.Screen.getTransition
 			);
 		}
+	}
+
+	_endAnimation = () => {
+		this.setState({animating: false}, () => {
+			this.forceUpdate();
+		})
 	}
 
 	getActiveScreens( item ){
