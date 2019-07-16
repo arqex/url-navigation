@@ -90,6 +90,7 @@ export default class ScreenStack extends Component {
 
 			screens.push(
 				<ScreenWrapper item={ item }
+					animating={ this.props.animating || this.state.animating }
 					ref={ this.screenRefs[key] }
 					ScreenStack={ ScreenStack }
 					router={ router }
@@ -259,6 +260,7 @@ export default class ScreenStack extends Component {
 			}
 
 			if( prevIndex && nextIndex && prevIndex.relative !== nextIndex.relative) {
+				this.setState({animating: true});
 				let transition = this.getScreenTransition( Screen );				
 
 				Animated.timing( nextIndex.transition, {
@@ -266,7 +268,7 @@ export default class ScreenStack extends Component {
 					easing: transition.easing,
 					duration: transition.duration || 300,
 					useNativeDriver: !isWeb,
-				}).start()
+				}).start( () => this.setState({animating: false}))
 			}
 		})
 

@@ -76,6 +76,7 @@ export default class Navigator extends Component {
 							Drawer={ DrawerComponent }
 							navProps={ props } />
 						<ScreenStack router={router}
+							animating={ this.state.animating }
 							screenTransition={transition}
 							stackTransition={modalTransition.stack}
 							stackIndexes={indexes.stack}
@@ -86,6 +87,7 @@ export default class Navigator extends Component {
 							drawer={this.drawer}
 							navProps={props}/>
 						<ModalWrapper router={router}
+							animating={ this.state.animating }
 							stack={router.modal.stack}
 							index={router.modal.stack}
 							transition={modalTransition.modal}
@@ -219,7 +221,8 @@ export default class Navigator extends Component {
 	}
 
 	updateModalIndexes( showModal ){
-		let {indexes} = this.state
+		let stateUpdate = {};
+		let indexes;
 
 		if( !indexes ){
 			indexes = {
@@ -229,6 +232,8 @@ export default class Navigator extends Component {
 		}
 		else {
 			let transitions = this.getModalTransitions()
+
+			stateUpdate = {animating: true};
 
 			indexes = {
 				modal: {showing: !!showModal, transition: indexes.modal.transition },
@@ -247,9 +252,10 @@ export default class Navigator extends Component {
 				easing: transitions.stack.easing,
 				duration: transitions.stack.duration || 300,
 				useNativeDriver: !isWeb
-			}).start()
+			}).start( () => this.setState({animating: false}));
 		}
 
+		stateUpdate.indexes = indexes;
 		this.setState({indexes})
 	}
 }
