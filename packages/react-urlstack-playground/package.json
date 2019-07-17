@@ -1,6 +1,6 @@
 {
   "name": "react-urlstack-playground",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo r -c && expo start",
@@ -48,7 +48,7 @@
     "react-native": "^0.57.8",
     "react-native-elements": "^1.0.0",
     "react-native-icons": "^0.7.1",
-    "react-urlstack": "^0.3.13",
+    "react-urlstack": "^0.3.14",
     "resolve": "1.8.1",
     "terser-webpack-plugin": "1.1.0",
     "url-loader": "1.1.1",
