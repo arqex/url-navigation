@@ -268,7 +268,7 @@ export default class ScreenStack extends Component {
 					easing: transition.easing,
 					duration: transition.duration || 300,
 					useNativeDriver: !isWeb,
-				}).start( _this.endAnimation )
+				}).start( this._endAnimation )
 			}
 		})
 
@@ -289,9 +289,13 @@ export default class ScreenStack extends Component {
 	}
 
 	_endAnimation = () => {
-		this.setState({animating: false}, () => {
-			this.forceUpdate();
-		})
+		// This is called as the last Animated frame is triggered
+		// wait a bit until that frame is reflected in the UI
+		setTimeout(() => {
+			this.setState({ animating: false }, () => {
+				this.forceUpdate();
+			})
+		}, 16);
 	}
 
 	getActiveScreens( item ){

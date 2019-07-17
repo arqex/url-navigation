@@ -260,9 +260,13 @@ export default class Navigator extends Component {
 	}
 	
 	_endAnimation = () => {
-		this.setState({animating: false}, () => {
-			this.forceUpdate();
-		})
+		// This is called as the last Animated frame is triggered
+		// wait a bit until that frame is reflected in the UI
+		setTimeout( () => {
+			this.setState({ animating: false }, () => {
+				this.forceUpdate();
+			})
+		}, 16);
 	}
 }
 
