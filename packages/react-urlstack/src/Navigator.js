@@ -127,6 +127,11 @@ export default class Navigator extends Component {
 	getScreenStack( routerStack, routerIndex ){
 		let stack = routerStack.slice();
 		let index = routerIndex;
+		
+		if( !stack.length ){
+			return {stack, index};
+		}
+		
 		let lastIndex = routerStack.length - 1;
 		let last = stack[ lastIndex ]
 		let options = last.Screen.urlstackOptions || {}
