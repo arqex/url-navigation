@@ -39,7 +39,7 @@ export default class ScreenStack extends Component {
 		this.screenRefs = {};
 
 		this.previousIndex = index;
-		this.previousScreen = stack[index].key;
+		this.previousScreen = stack[index] && stack[index].key;
 
 		// memoize a couple of methods
 		this.calculateIndexes = memoize( this.calculateIndexes.bind( this ) )
@@ -159,16 +159,20 @@ export default class ScreenStack extends Component {
 			})
 		}
 
+		// We can init without setting the routes so maybe we don't have a screen just yet
+		let screen = stack[index];
+		if( !screen ) return;
+
 		// If the pointer to the current screen has changed we need to start
 		// the animations at the next tick, so raise the flag needRelativeUpdate
-		if( index !== this.previousIndex || stack[index].key !== this.previousScreen ){
+		if( index !== this.previousIndex || screen.key !== this.previousScreen ){
 			this.transitionIndexes = {
 				leaving: this.previousIndex,
 				entering: index
 			}
 			this.needRelativeUpdate = true;
 			this.previousIndex = index;
-			this.previousScreen = stack[index].key;
+			this.previousScreen = screen.key;
 			this.forceUpdate();
 		}
 
