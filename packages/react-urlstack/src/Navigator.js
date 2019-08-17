@@ -149,7 +149,7 @@ export default class Navigator extends Component {
 		}
 
 		this.fu = () => this.forceUpdate();
-		router.onChange( () => this.fu() );
+		router.onChange( this.fu );
 		router.start();
 
 		this.router = router;

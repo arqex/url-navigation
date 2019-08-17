@@ -244,7 +244,7 @@ function setStacksAndIndexes( router, stacks, targetIndex, routeData ){
 		if( !router.modal ){
 			router.modal = { stack: [], activeIndex: 0 }
 		}
-		router.modal.active = targetIndex >= 0;
+		router.modal.active = targetIndex >= (stacks[0].length || 0);
 		setStacksAndIndexes( router.modal, stacks.slice(1), targetIndex - stacks[0].length, routeData )
 	}
 }

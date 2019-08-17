@@ -32,7 +32,8 @@ export default [
 	]},
 	{ path: '/list', cb: PersonList, children: [
 		{path: '/:id', cb: PersonDetails, children: [
-			{path: '/moreInfo', cb: PersonMoreInfo }
+			{path: '/moreInfo', cb: PersonMoreInfo },
+			{path: '/modal', cb: Modal, isModal: true }
 		]}
 	]},
 	{ path: '/simpleScreen', cb: SimpleScreen },
