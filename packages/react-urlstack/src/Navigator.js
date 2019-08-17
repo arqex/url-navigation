@@ -76,6 +76,7 @@ export default class Navigator extends Component {
 							Drawer={ DrawerComponent }
 							navProps={ props } />
 						<ScreenStack router={router}
+							animating={ this.state.animating }
 							screenTransition={transition}
 							stackTransition={modalTransition.stack}
 							stackIndexes={indexes.stack}
@@ -86,6 +87,7 @@ export default class Navigator extends Component {
 							drawer={this.drawer}
 							navProps={props}/>
 						<ModalWrapper router={router}
+							animating={ this.state.animating }
 							stack={router.modal.stack}
 							index={router.modal.stack}
 							transition={modalTransition.modal}
@@ -125,6 +127,11 @@ export default class Navigator extends Component {
 	getScreenStack( routerStack, routerIndex ){
 		let stack = routerStack.slice();
 		let index = routerIndex;
+		
+		if( !stack.length ){
+			return {stack, index};
+		}
+		
 		let lastIndex = routerStack.length - 1;
 		let last = stack[ lastIndex ]
 		let options = last.Screen.urlstackOptions || {}
@@ -219,7 +226,8 @@ export default class Navigator extends Component {
 	}
 
 	updateModalIndexes( showModal ){
-		let {indexes} = this.state
+		let stateUpdate = {};
+		let indexes = this.state.indexes;
 
 		if( !indexes ){
 			indexes = {
@@ -229,6 +237,8 @@ export default class Navigator extends Component {
 		}
 		else {
 			let transitions = this.getModalTransitions()
+
+			stateUpdate = {animating: true};
 
 			indexes = {
 				modal: {showing: !!showModal, transition: indexes.modal.transition },
@@ -247,10 +257,21 @@ export default class Navigator extends Component {
 				easing: transitions.stack.easing,
 				duration: transitions.stack.duration || 300,
 				useNativeDriver: !isWeb
-			}).start()
+			}).start( () => this.setState( this._endAnimation ));
 		}
 
-		this.setState({indexes})
+		stateUpdate.indexes = indexes;
+		this.setState( stateUpdate )
+	}
+	
+	_endAnimation = () => {
+		// This is called as the last Animated frame is triggered
+		// wait a bit until that frame is reflected in the UI
+		setTimeout( () => {
+			this.setState({ animating: false }, () => {
+				this.forceUpdate();
+			})
+		}, 16);
 	}
 }
 

@@ -1,7 +1,7 @@
 import React, {Component, createRef} from 'react'
 import { StyleSheet, Animated, View } from 'react-native'
 import {animatedStyles} from './utils/animatedStyles'
-
+import ScreenContent from './ScreenContent'
 
 export default class ModalWrapper extends Component {
 	constructor(props){
@@ -20,18 +20,7 @@ export default class ModalWrapper extends Component {
 		let content;
 		
 		if( item ){
-			let ref = item.Screen.prototype instanceof Component ? this.screenRef : undefined;
-
-			content =(	
-				<item.Screen router={ this.props.router }
-					ref={ ref }
-					drawer={ this.props.drawer }
-					indexes={ this.props.indexes }
-					layout={ this.props.layout }
-					location={ item.location }
-					breakPoint={ this.props.breakPoint }
-					{...this.props.navProps } />
-			)
+			content = <ScreenContent renderScreen={ this._renderScreen } animating={ this.props.animating } />;
 		}
 
 		return (
@@ -39,6 +28,22 @@ export default class ModalWrapper extends Component {
 				{ content }
 			</Animated.View>
 		)
+	}
+
+	_renderScreen = () => {
+		let item = this.props.stack[0];
+		let ref = item.Screen.prototype instanceof Component ? this.screenRef : undefined;
+
+		return (	
+			<item.Screen router={ this.props.router }
+				ref={ ref }
+				drawer={ this.props.drawer }
+				indexes={ this.props.indexes }
+				layout={ this.props.layout }
+				location={ item.location }
+				breakPoint={ this.props.breakPoint }
+				{...this.props.navProps } />
+		);
 	}
 
 	getScreenItem( item ){

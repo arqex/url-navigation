@@ -4,6 +4,7 @@ import tabTransition from './defaultTransitions/tabTransition'
 import {animatedStyles} from './utils/animatedStyles'
 import Context from './utils/wrapperContext'
 import {createId, nofn} from './utils/utils'
+import ScreenContent from './ScreenContent'
 
 export default class ScreenWrapper extends Component {
 	constructor(props){
@@ -36,13 +37,13 @@ export default class ScreenWrapper extends Component {
 		return (
 			<Animated.View style={ containerStyles } onLayout={ () => this.props.onReady( item.key ) }>
 				<Context.Provider value={contextValue}>
-					{ this.renderScreen() }
+					<ScreenContent renderScreen={ this._renderScreen } animating={ this.props.animating } />
 				</Context.Provider>
 			</Animated.View>
 		)
 	}
 
-	renderScreen(){
+	_renderScreen = () => {
 		let { item, ScreenStack, router, transition, indexes, layout, drawer, breakPoint, navProps } = this.props;
 		let { Screen, location } = item;
 		let ref = Screen.prototype instanceof Component ? this.screenRef : undefined;

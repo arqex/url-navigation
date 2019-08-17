@@ -39,7 +39,7 @@ export default class ScreenStack extends Component {
 		this.screenRefs = {};
 
 		this.previousIndex = index;
-		this.previousScreen = stack[index].key;
+		this.previousScreen = stack[index] && stack[index].key;
 
 		// memoize a couple of methods
 		this.calculateIndexes = memoize( this.calculateIndexes.bind( this ) )
@@ -90,6 +90,7 @@ export default class ScreenStack extends Component {
 
 			screens.push(
 				<ScreenWrapper item={ item }
+					animating={ this.props.animating || this.state.animating }
 					ref={ this.screenRefs[key] }
 					ScreenStack={ ScreenStack }
 					router={ router }
@@ -158,16 +159,20 @@ export default class ScreenStack extends Component {
 			})
 		}
 
+		// We can init without setting the routes so maybe we don't have a screen just yet
+		let screen = stack[index];
+		if( !screen ) return;
+
 		// If the pointer to the current screen has changed we need to start
 		// the animations at the next tick, so raise the flag needRelativeUpdate
-		if( index !== this.previousIndex || stack[index].key !== this.previousScreen ){
+		if( index !== this.previousIndex || screen.key !== this.previousScreen ){
 			this.transitionIndexes = {
 				leaving: this.previousIndex,
 				entering: index
 			}
 			this.needRelativeUpdate = true;
 			this.previousIndex = index;
-			this.previousScreen = stack[index].key;
+			this.previousScreen = screen.key;
 			this.forceUpdate();
 		}
 
@@ -259,6 +264,7 @@ export default class ScreenStack extends Component {
 			}
 
 			if( prevIndex && nextIndex && prevIndex.relative !== nextIndex.relative) {
+				this.setState({animating: true});
 				let transition = this.getScreenTransition( Screen );				
 
 				Animated.timing( nextIndex.transition, {
@@ -266,7 +272,7 @@ export default class ScreenStack extends Component {
 					easing: transition.easing,
 					duration: transition.duration || 300,
 					useNativeDriver: !isWeb,
-				}).start()
+				}).start( this._endAnimation )
 			}
 		})
 
@@ -284,6 +290,16 @@ export default class ScreenStack extends Component {
 				prevItem.Screen.getTransition
 			);
 		}
+	}
+
+	_endAnimation = () => {
+		// This is called as the last Animated frame is triggered
+		// wait a bit until that frame is reflected in the UI
+		setTimeout(() => {
+			this.setState({ animating: false }, () => {
+				this.forceUpdate();
+			})
+		}, 16);
 	}
 
 	getActiveScreens( item ){
@@ -327,6 +343,10 @@ export default class ScreenStack extends Component {
 
 	_onScreenUnmount( id ){
 		delete this.readyScreens[id];
+	}
+
+	shouldComponentUpdate(){
+		return !this.props.animating;
 	}
 }
 
