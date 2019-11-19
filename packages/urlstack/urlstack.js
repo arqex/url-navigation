@@ -34,7 +34,7 @@ var initialized = false;
 export default function create( routes, options ){
 	var strategyName = options && options.strategy;
 	if( !strategyName ){
-		if( typeof window === 'undefined' || !window.addEventListener ){
+		if( typeof document === 'undefined' || typeof window === 'undefined' || !window.addEventListener ){
 			strategyName = 'node';
 		}
 	}
