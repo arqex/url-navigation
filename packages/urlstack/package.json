@@ -1,6 +1,6 @@
 {
   "name": "urlstack",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "A router for universal navigation in react-native",
   "main": "dist/urlstack.js",
   "scripts": {
