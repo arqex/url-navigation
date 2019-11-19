@@ -32,15 +32,23 @@ export {router}
 var initialized = false;
 
 export default function create( routes, options ){
-	var strategy;
-	if( typeof document === 'undefined' ){
-		strategy = nodeStrategy
+	var strategyName = options && options.strategy;
+	if( !strategyName ){
+		if( typeof window === 'undefined' || !window.addEventListener ){
+			strategyName = 'node';
+		}
 	}
-	else if( options && options.strategy === 'hash' ){
-		strategy = hashStrategy
-	}
-	else {
-		strategy = pushStrategy
+
+	let strategy;
+	switch( strategyName ){
+		case 'node':
+			strategy = nodeStrategy;
+			break;
+		case 'hash':
+			strategy = hashStrategy;
+			break;
+		default:
+			strategy = pushStrategy;
 	}
 
 	let r = router;
