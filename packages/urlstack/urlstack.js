@@ -32,24 +32,7 @@ export {router}
 var initialized = false;
 
 export default function create( routes, options ){
-	var strategyName = options && options.strategy;
-	if( !strategyName ){
-		if( typeof document === 'undefined' || typeof window === 'undefined' || !window.addEventListener ){
-			strategyName = 'node';
-		}
-	}
-
-	let strategy;
-	switch( strategyName ){
-		case 'node':
-			strategy = nodeStrategy;
-			break;
-		case 'hash':
-			strategy = hashStrategy;
-			break;
-		default:
-			strategy = pushStrategy;
-	}
+	let strategy = parseStrategy( options && options.strategy );
 
 	let r = router;
 	if( initialized ){
@@ -108,13 +91,8 @@ export default function create( routes, options ){
 			r.onChange( createRouteChanger( this, routes, callbacks ) )
 		},
 
-		setStrategy: function( strategyName ){
-			let strategy = pushStrategy;
-			if( strategyName === 'hash' ){
-				strategy = hashStrategy
-			}
-			
-			r.setStrategy( strategy );
+		setStrategy: function( strategyName ){			
+			r.setStrategy( parseStrategy( strategyName ) );
 		}
 	};
 
@@ -130,6 +108,29 @@ export default function create( routes, options ){
 	});
 
 	return stackRouter;
+}
+
+// Helper to get an strategy implementation from the name
+function parseStrategy( strategyName ){
+	if( !strategyName ){
+		if( typeof document === 'undefined' || typeof window === 'undefined' || !window.addEventListener ){
+			strategyName = 'node';
+		}
+	}
+
+	let strategy;
+	switch( strategyName ){
+		case 'node':
+			strategy = nodeStrategy;
+			break;
+		case 'hash':
+			strategy = hashStrategy;
+			break;
+		default:
+			strategy = pushStrategy;
+	}
+
+	return strategy;
 }
 
 // Helper to translate urlhub's location changes to the model {stack, index}
