@@ -178,8 +178,8 @@ export default class Navigator extends Component {
 
 	componentWillUnmount() {
 		this.unmounted = true;
-		router.offChange( this.fu );
-		router.offBeforeChange( this.props.interceptor );
+		router.urlhub.offChange( this.fu );
+		router.urlhub.offBeforeChange( this.props.interceptor );
 		BackHandler.removeEventListener( 'hardwareBackPress', this._onBack )
 	}
 
