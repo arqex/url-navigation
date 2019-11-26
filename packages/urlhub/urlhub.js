@@ -231,6 +231,12 @@ var prototype = {
   onChange: function( cb ){
     this.cbs.push( cb );
   },
+  offBeforeChange: function( cb ){
+    removeFromArray( this.obc, cb );
+  },
+  offChange: function (cb) {
+    removeFromArray(this.cbs, cb);
+  },
   push: function( location ){
     this.updateLocation('push', location);
   },
@@ -311,4 +317,13 @@ function mergeLocations( prev, next ){
   }
 
   return location.pathname + search + location.hash;
+}
+
+function removeFromArray( arr, it ){
+  let i = arr.length;
+  while( i > 0 ){
+    if( arr[i] === it ){
+      arr.splice(i, 1);
+    }
+  }
 }

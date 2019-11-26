@@ -4,7 +4,7 @@
   "description": "A router for universal navigation in react-native",
   "main": "dist/urlstack.js",
   "scripts": {
-    "build": "build",
+    "build": "./build",
     "test": "npx karma start karma.conf.js --single-run && npx jasmine --random=false",
     "karma": "npx karma start karma.chrome.conf.js",
     "preversion": "npm run build && npm test",

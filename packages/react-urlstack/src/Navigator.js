@@ -177,7 +177,9 @@ export default class Navigator extends Component {
 	}
 
 	componentWillUnmount() {
-		this.fu = () => {}
+		this.unmounted = true;
+		router.offChange( this.fu );
+		router.offBeforeChange( this.props.interceptor );
 		BackHandler.removeEventListener( 'hardwareBackPress', this._onBack )
 	}
 
@@ -194,6 +196,8 @@ export default class Navigator extends Component {
 	}
 
 	_onLayout( layout ){
+		if( this.unmounted ) return;
+
 		this.calculateTransition( this.props.transitions, layout.width )
 		this.setState( {layout} )
 	}
