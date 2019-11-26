@@ -8,7 +8,7 @@
 var r;
 function createRouter( initialRoute ){
 	r && r.stop();
-	r = (urlstack.default ? urlstack.default : urlstack)( routes, {strategy: 'hash'} );
+	r = (urlstack.default ? urlstack.default : urlstack)( routes );
 	r.navigate( initialRoute );
 	r.start();
 	return r;

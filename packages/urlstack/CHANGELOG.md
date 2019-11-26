@@ -1,3 +1,6 @@
+# v0.7.3
+* Updates the way we detect node environments for urlstack
+
 # v0.7.0
 * Urlhub is now exported as part of the module, so we can `import {router} from 'urlstack'` even before creating a urlstack router, to be accessible to other parts of the apps.
 * Routes and strategy are not mandatory now to create a stack router.
