@@ -55,7 +55,7 @@ export default class Navigator extends Component {
 		let router = this.router;
 		if( !router ) return null;
 		
-		let { DrawerComponent, interceptor, routes, transitions, ...props } = this.props
+		let { DrawerComponent, interceptor, routes, transitions, drawerInitiallyOpen, ...props } = this.props
 		let { layout, indexes } = this.state
 		
 		let transition = this.currentTransition
@@ -74,6 +74,7 @@ export default class Navigator extends Component {
 							indexes={indexes.stack}
 							collapsible={ transition.collapsibleDrawer }
 							Drawer={ DrawerComponent }
+							initiallyOpen={ drawerInitiallyOpen }
 							navProps={ props } />
 						<ScreenStack router={router}
 							animating={ this.state.animating }

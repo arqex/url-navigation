@@ -7,18 +7,18 @@ let handleWidth = 15
 
 export default class DrawerWrapper extends Component {
 	constructor(props){
-		super(props)
+		super(props);
+	
+		this.state = {
+			open: props.initiallyOpen || false
+		};
 
 		// This will be true when we know the real width of the drawer
 		this.layoutUpdated = false;
 		this.drawerWidth = 300;
-
-		this.drawerPos = new Animated.Value(0);
+		
+		this.drawerPos = new Animated.Value( props.initiallyOpen ? this.drawerWidth : 0 );
 		this.calculateDrawerIndex();
-	
-		this.state = {
-			open: false
-		}
 
 		this.overlayAnimStyle = {
 			transform: [{translateX: this.drawerIndex.interpolate({
@@ -115,6 +115,11 @@ export default class DrawerWrapper extends Component {
 
 	calculateDrawerIndex(){
 		let di = this.drawerIndex;
+
+		if( this.state.open ){
+			this.drawerPos.setValue( this.drawerWidth );
+		}
+
 		let index = this.drawerPos.interpolate({
 			inputRange: [0, this.drawerWidth ],
 			outputRange: [0, 1]
