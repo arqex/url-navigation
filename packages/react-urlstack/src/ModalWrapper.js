@@ -80,7 +80,6 @@ export default class ModalWrapper extends Component {
 		if( this.props.indexes.showing ){
 			this.triggerCycleMethod('componentWillLeave')
 		}
-		this.props.onUnmount( this.props.item.key )
 	}
 
 	componentDidMount(){

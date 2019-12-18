@@ -1,11 +1,11 @@
 {
   "name": "urlhub",
-  "version": "0.8.0",
+  "version": "0.8.2",
   "description": "Another router library, yet the simplest one.",
   "main": "./dist/urlhub.js",
   "scripts": {
     "test": "npx karma start karma.conf.js --single-run && \"./node_modules/.bin/jasmine\"",
-    "build": "build",
+    "build": "./build",
     "preversion": "npm run build && npm test",
     "version": "npm run build"
   },

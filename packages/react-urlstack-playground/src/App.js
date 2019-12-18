@@ -16,7 +16,6 @@ export default function StackApp(props){
       <Navigator routes={ routes }
         interceptor={ l => l.pathname === '/foo' ? '/tabs' : l }
         DrawerComponent={ SideMenu }
-        drawerInitiallyOpen
         foo="bar"
         transitionTime={ 1000 } /> 
     </View>
