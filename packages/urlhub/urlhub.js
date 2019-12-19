@@ -321,7 +321,7 @@ function mergeLocations( prev, next ){
 
 function removeFromArray( arr, it ){
   let i = arr.length;
-  while( i > 0 ){
+  while( i-- > 0 ){
     if( arr[i] === it ){
       arr.splice(i, 1);
     }
