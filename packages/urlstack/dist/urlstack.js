@@ -1,4 +1,4 @@
-/* urlstack 0.7.9 by Javier Marquez. MIT licensed. https://github.com/arqex/url-navigation/tree/master/packages/urlstack */
+/* urlstack 0.7.10 by Javier Marquez. MIT licensed. https://github.com/arqex/url-navigation/tree/master/packages/urlstack */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();

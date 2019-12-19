@@ -1,4 +1,4 @@
-/* urlhub 0.8.2 by Javier Marquez. MIT licensed. https://github.com/arqex/url-navigation/tree/master/packages/urlhub */
+/* urlhub 0.8.3 by Javier Marquez. MIT licensed. https://github.com/arqex/url-navigation/tree/master/packages/urlhub */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
