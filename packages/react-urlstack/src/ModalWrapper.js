@@ -57,23 +57,17 @@ export default class ModalWrapper extends Component {
 		this.animatedStyles = animatedStyles( this.props.transition, indexes, layout )
 	}
 
-	componentWillReceiveProps( nextProps ){
-		if( this.hasLayoutChanged( nextProps ) ){
-			this.setAnimatedLayout( nextProps.indexes, nextProps.layout );
-		}
-	}
+	hasLayoutChanged(prevProps) {
+		if (!this.props.indexes) return;
 
-	hasLayoutChanged( nextProps ){
-		if( !nextProps.indexes ) return;
-		
-		let { width } = nextProps.layout;
-		let { showing } = nextProps.indexes;
+		let { width } = prevProps.layout;
+		let { showing } = prevProps.indexes;
 		let { layout, indexes } = this.props;
 
 		return (
 			width !== layout.width ||
 			showing !== indexes.showing
-		)
+		);
 	}
 	
 	componentWillUnmount(){
@@ -97,6 +91,10 @@ export default class ModalWrapper extends Component {
 		}
 		else if( !prevShowing && nextShowing ){
 			this.triggerCycleMethod('componentWillEnter')
+		}
+
+		if (this.hasLayoutChanged(prevProps)) {
+			this.setAnimatedLayout(this.props.indexes, this.props.layout);
 		}
 	}
 

@@ -139,7 +139,7 @@ export default class DrawerWrapper extends Component {
 
 		let drawer = this.refs.drawer
 		this.setState({open: true})
-		drawer && drawer.setVelocity({x: 2000})
+		drawer && drawer.setVelocity({x: 3000})
 	}
 
 	closeDrawer(){
@@ -147,7 +147,7 @@ export default class DrawerWrapper extends Component {
 
 		let drawer = this.refs.drawer
 		this.setState({open: false})
-		drawer && drawer.setVelocity({x: -2000})
+		drawer && drawer.setVelocity({x: -3000})
 	}
 
 	onDrag( e ){

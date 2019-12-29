@@ -88,25 +88,25 @@ export default class ScreenWrapper extends Component {
 		this.animatedStyles = transition ? animatedStyles( transition, indexes, layout ) : {};
 	}
 
-	componentWillReceiveProps( nextProps ){
-		if( this.hasLayoutChanged( nextProps ) ){
-			this.setAnimatedLayout( nextProps.indexes, nextProps.layout );
+	componentDidUpdate(prevProps) {
+		if (this.hasLayoutChanged(prevProps)) {
+			this.setAnimatedLayout(this.props.indexes, this.props.layout);
 		}
 	}
 
-	hasLayoutChanged( nextProps ){
-		if( !nextProps.indexes ) return;
-		
-		let { width } = nextProps.layout;
-		let { screen, relative } = nextProps.indexes;
+	hasLayoutChanged(prevProps) {
+		if (!this.props.indexes) return;
+
+		let { width } = prevProps.layout;
+		let { screen, relative } = prevProps.indexes;
 		let { layout, indexes } = this.props;
 
 		return (
 			width !== layout.width ||
 			screen !== indexes.screen ||
 			relative !== indexes.relative ||
-			this.props.transition !== nextProps.transition
-		)
+			this.props.transition !== prevProps.transition
+		);
 	}
 
 	componentWillUnmount(){
