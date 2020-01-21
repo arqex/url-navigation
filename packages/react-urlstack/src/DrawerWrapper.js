@@ -97,7 +97,7 @@ export default class DrawerWrapper extends Component {
 
 		this.layoutUpdated = true;
 		this.animatedStyles = animatedStyles(this.props.transition, this.props.indexes, layout );
-		this.drawerWidth = layout.width - handleWidth;
+		this.drawerWidth = Math.max( 0, layout.width - handleWidth );
 		this.calculateDrawerIndex();
 		this.forceUpdate();
 	}
