@@ -55,14 +55,14 @@ export default class DrawerWrapper extends Component {
 
 		let containerStyles = [
 			styles.container,
-			collapsible && styles.collapsibleContainer,
-			collapsible && {width, left},
+			styles.collapsibleContainer,
+			{width, left},
 			this.animatedStyles
 		]
 
 		let drawerStyles = [
 			styles.drawer,
-			collapsible && styles.collapsibleDrawer
+			styles.collapsibleDrawer
 		]
 
 		let snapPoints = [
