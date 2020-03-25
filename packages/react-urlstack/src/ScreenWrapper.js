@@ -65,7 +65,8 @@ export default class ScreenWrapper extends Component {
 						index={ item.tabs.activeIndex }
 						parentIndexes={ indexes }
 						layout={ layout }
-						breakPoint={ breakPoint }
+						breakPoint={breakPoint}
+						drawer={drawer}
 						navProps={ navProps } />
 				</Screen>
 			)
