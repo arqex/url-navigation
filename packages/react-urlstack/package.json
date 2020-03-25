@@ -1,6 +1,6 @@
 {
   "name": "react-urlstack",
-  "version": "0.3.31",
+  "version": "0.3.32",
   "description": "A responsive navigator for react-native based on URLs",
   "main": "src/index.js",
   "scripts": {
