@@ -280,11 +280,10 @@ export default class Navigator extends Component {
 	}
 }
 
-let statusBarHeight = Platform.OS === 'android' ? StatusBar.currentHeight : 0
+// let statusBarHeight = Platform.OS === 'android' ? StatusBar.currentHeight : 0
 
 let styles = StyleSheet.create({
 	windowWrapper: {
-		paddingTop: statusBarHeight,
 		flex: 1,
 	},
 
