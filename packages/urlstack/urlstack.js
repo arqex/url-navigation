@@ -70,6 +70,15 @@ export default function create( routes, options ){
 			callbacks.push( handler )
 		},
 
+		offChange: function( handler ){
+			let i = callbacks.length;
+			while( i-- > 0 ){
+				if( callbacks[i] === handler ){
+					callbacks.splice(i, 1);
+				}
+			}
+		},
+
 		// The main method to update the current screen
 		navigate: function( route ){
 			var isBack = route === this._lastNavigated[ this._lastNavigated.length - 2];

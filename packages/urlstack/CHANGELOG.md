@@ -1,3 +1,6 @@
+# v0.8.0
+* Adds the method `offChange` to remove change listeners.
+
 # v0.7.3
 * Updates the way we detect node environments for urlstack
 
